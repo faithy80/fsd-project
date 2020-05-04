@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
-from django.contrib import auth
-from .forms import LoginForm
+from django.contrib import auth, messages
+from .forms import LoginForm, RegistrationForm
 
 
 def logout(request):
@@ -23,7 +23,7 @@ def login(request):
         if login_form.is_valid():
             user = auth.authenticate(
                 username=request.POST['username'],
-                password=request.POST['password']
+                password=request.POST['password'],
             )
 
             if user:
@@ -33,7 +33,7 @@ def login(request):
             else:
                 login_form.add_error(
                     None,
-                    "Your username or password is incorrect"
+                    "Your username or password is incorrect",
                 )
 
     else:
@@ -41,3 +41,37 @@ def login(request):
 
     context = {'login_form': login_form}
     return render(request, 'login.html', context)
+
+
+def register(request):
+    """
+    Render the registration page
+    """
+
+    if request.user.is_authenticated:
+        return redirect(reverse('index'))
+
+    if request.method == "POST":
+        registration_form = RegistrationForm(request.POST)
+
+        if registration_form.is_valid():
+            registration_form.save()
+
+            user = auth.authenticate(
+                username=request.POST['username'],
+                password=request.POST['password1']
+            )
+            
+            if user:
+                messages.success(request, "You have successfully registered")
+            
+            else:
+                messages.error(request, "Unable to register your account")
+            
+            return redirect(reverse('index'))
+    
+    else:
+        registration_form = RegistrationForm()
+    
+    context = {'registration_form': registration_form}
+    return render(request, 'register.html', context) 
