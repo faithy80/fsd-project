@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from .forms import LoginForm, RegistrationForm
+from dashboard.forms import ProfileForm
 
 
 def logout(request):
@@ -51,9 +52,14 @@ def register(request):
 
     if request.method == "POST":
         registration_form = RegistrationForm(request.POST)
+        profile_form = ProfileForm(request.POST)
 
-        if registration_form.is_valid():
-            registration_form.save()
+        if registration_form.is_valid() and profile_form.is_valid():
+            user = registration_form.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
 
             user = auth.authenticate(
                 username=request.POST['username'],
@@ -70,6 +76,10 @@ def register(request):
     
     else:
         registration_form = RegistrationForm()
+        profile_form = ProfileForm()
     
-    context = {'registration_form': registration_form}
+    context = {
+        'registration_form': registration_form,
+        'profile_form': profile_form,
+    }
     return render(request, 'register.html', context) 

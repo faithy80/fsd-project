@@ -9,6 +9,7 @@
 <form method="POST">
     {% csrf_token %}
     {{ registration_form.as_p }}
+    {{ profile_form }}
     <button class="waves-effect waves-light btn" type="submit">Register<i class="material-icons right">done</i></button>
 </form>
 {% endblock %}
