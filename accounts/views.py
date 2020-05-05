@@ -9,6 +9,7 @@ def logout(request):
     """
 
     auth.logout(request)
+    messages.success(request, "You logged out successfully")
     return redirect(reverse('index'))
 
 
@@ -28,13 +29,11 @@ def login(request):
 
             if user:
                 auth.login(user=user, request=request)
+                messages.success(request, "You logged in successfully")
                 return redirect(reverse('index'))
 
             else:
-                login_form.add_error(
-                    None,
-                    "Your username or password is incorrect",
-                )
+                messages.error(request, "Your username or password is incorrect")
 
     else:
         login_form = LoginForm()
