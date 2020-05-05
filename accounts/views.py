@@ -29,8 +29,7 @@ def login(request):
 
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, "You logged in successfully")
-                return redirect(reverse('index'))
+                return redirect(reverse('dashboard'))
 
             else:
                 messages.error(request, "Your username or password is incorrect")
@@ -44,7 +43,7 @@ def login(request):
 
 def register(request):
     """
-    Render the registration page
+    Renders the registration page
     """
 
     if request.user.is_authenticated:

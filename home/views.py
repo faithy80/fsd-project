@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 
-# Create your views here.
+
 def index(request):
     """
-    Returns the landing page
+    Returns the landing page or redirect to
+    the dashboard, if the user is logged in
     """
 
-    return render(request, 'index.html')
+    if request.user.is_authenticated:
+        return redirect(reverse('dashboard'))
+    else:
+        return render(request, 'index.html')
