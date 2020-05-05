@@ -15,3 +15,6 @@ def dashboard(request):
 
         if profile.user_type == 'T':
             return render(request, 'teacher.html')
+
+        elif profile.user_type == 'S':
+            return render(request, 'student.html')
