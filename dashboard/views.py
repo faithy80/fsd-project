@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Profile
 
 
 def dashboard(request):
@@ -8,3 +9,9 @@ def dashboard(request):
 
     if request.user.is_superuser:
         return render(request, 'admin.html')
+
+    else:
+        profile = Profile.objects.get(user_id=request.user.id)
+
+        if profile.user_type == 'T':
+            return render(request, 'teacher.html')
