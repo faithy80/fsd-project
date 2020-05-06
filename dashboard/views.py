@@ -17,4 +17,5 @@ def dashboard(request):
             return render(request, 'teacher.html')
 
         elif profile.user_type == 'S':
-            return render(request, 'student.html')
+            context = {'profile': profile}
+            return render(request, 'student.html', context)
