@@ -37,4 +37,4 @@ class Profile(models.Model):
         Unicode representation of the user profile.
         """
         
-        return self.user.first_name + ' ' + self.user.last_name
+        return self.user.get_full_name()
