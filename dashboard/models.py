@@ -44,7 +44,7 @@ class ContentUpload(models.Model):
     Model definition for the user profile
     """
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=100)
     content = models.FileField('Upload content')
     date = models.DateField(auto_now_add=True)
@@ -58,4 +58,4 @@ class ContentUpload(models.Model):
         Unicode representation of the content upload model.
         """
 
-        return self.user.usename + ' [' + str(self.id) + ']'
+        return self.user.username + ' [' + str(self.id) + ']'
