@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, ContentUpload
 
 
 class ProfileForm(forms.ModelForm):
@@ -44,3 +44,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['user_type', 'classname']
+
+
+class ContentUploadForm(forms.ModelForm):
+    """
+    A form to upload content
+    """
+
+    class Meta:
+        model = ContentUpload
+        fields = ['title', 'content']

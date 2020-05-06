@@ -25,8 +25,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField('User type', max_length=1, choices=USER_TYPE)
-    classname = models.CharField('Class', max_length=3, choices=CLASSES)
-    
+    classname = models.CharField('Class', max_length=3, choices=CLASSES)    
     
     class Meta:
         verbose_name = 'Profile'
@@ -38,3 +37,25 @@ class Profile(models.Model):
         """
         
         return self.user.get_full_name()
+
+
+class ContentUpload(models.Model):
+    """
+    Model definition for the user profile
+    """
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.CharField('Title', max_length=100)
+    content = models.FileField('Upload content')
+    date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Content'
+        verbose_name_plural = 'Contents'
+
+    def __str__(self):
+        """
+        Unicode representation of the content upload model.
+        """
+
+        return self.user.usename + ' [' + str(self.id) + ']'
