@@ -38,6 +38,18 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update(
+            {'required': 'required'}
+        )
+        self.fields['last_name'].widget.attrs.update(
+            {'required': 'required'}
+        )
+        self.fields['email'].widget.attrs.update(
+            {'required': 'required'}
+        )
+    
     def clean_email(self, *args, **kwargs):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
