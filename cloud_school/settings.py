@@ -135,3 +135,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+# Authentication system related settings
+# https://docs.djangoproject.com/en/2.2/topics/auth/default/
+
+LOGOUT_REDIRECT_URL = '/'
