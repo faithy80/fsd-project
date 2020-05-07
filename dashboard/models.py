@@ -59,3 +59,7 @@ class ContentUpload(models.Model):
         """
 
         return self.user.username + ' [' + str(self.id) + ']'
+
+    def delete(self, *args, **kwargs):
+        self.content.delete()
+        super().delete(*args, **kwargs)
