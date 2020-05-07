@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
 from .models import Profile
+from .forms import ContentUploadForm
 
 
 def dashboard(request):
@@ -19,3 +21,30 @@ def dashboard(request):
         elif profile.user_type == 'S':
             context = {'profile': profile}
             return render(request, 'student.html', context)
+
+
+def upload_content(request):
+    """
+    Renders the template to upload contents
+    """
+
+    if request.method == 'POST':
+        form = ContentUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            content = form.save(commit=False)
+            content.user = request.user
+            content.save()
+
+            messages.success(request, "Your content has been added.")
+
+            return redirect(reverse('dashboard'))
+
+        else:
+            form = ContentUploadForm()    
+
+    else:
+        form = ContentUploadForm()
+
+    context = {'form': form}
+    return render(request, 'upload.html', context)

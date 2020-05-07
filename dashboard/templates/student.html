@@ -5,19 +5,6 @@
 
 {% block content %}
 
-<h5>User info</h5>
-<p>ID: {{ request.user.id }}</p>
-<p>Username: {{ request.user.username }}</p>
-<p>First name: {{ request.user.first_name }}</p>
-<p>Last name: {{ request.user.last_name }}</p>
-<p>Email address: {{ request.user.email }}</p>
-<p>Account created: {{ request.user.date_joined }}</p>
-<p>Last logged in: {{ request.user.last_login }}</p>
+<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn">Upload content</a>
 
-<h5>Profile info</h5>
-<p>ID: {{ profile.id }}</p>
-<p>User type ID: {{ profile.user_type }}</p>
-<p>Class ID: {{ profile.classname }}</p>
-
-<p>Current time: {% now "SHORT_DATETIME_FORMAT" %}</p>
 {% endblock %}
