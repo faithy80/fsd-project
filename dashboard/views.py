@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, ContentUpload
 from .forms import ContentUploadForm
 
 
@@ -19,7 +19,11 @@ def dashboard(request):
             return render(request, 'teacher.html')
 
         elif profile.user_type == 'S':
-            context = {'profile': profile}
+            uploaded_content = ContentUpload.objects.filter(user=request.user) or None
+            context = {
+                'profile': profile,
+                'uploaded_content': uploaded_content,
+            }
             return render(request, 'student.html', context)
 
 
