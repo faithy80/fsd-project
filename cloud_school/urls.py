@@ -18,6 +18,8 @@ from django.urls import path, include
 from home import urls as urls_home
 from accounts import urls as urls_accounts
 from dashboard import urls as urls_dashboard
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,3 +27,6 @@ urlpatterns = [
     path('accounts/', include(urls_accounts)),
     path('dashboard/', include(urls_dashboard)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
