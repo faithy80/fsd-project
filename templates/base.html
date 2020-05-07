@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block page_title %}{% endblock %}</title>
+    <title>{% block page_title %}{% endblock page_title %}</title>
 
+    {% block css %}
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    {% endblock css %}
 </head>
 
 <body>
@@ -31,7 +33,7 @@
     </nav>
 
     <div class="container">
-        <h4>{% block page_header %}{% endblock %}</h4>
+        <h4>{% block page_header %}{% endblock page_header %}</h4>
 
         {% if messages %}
             {% for message in messages %}
@@ -46,15 +48,32 @@
         {% endif %}
 
         {% block content %}
-        {% endblock %}
+        {% endblock content %}
     </div>
 
     <footer>
 
     </footer>
 
+    <!-- Materialize CSS javascript requirements -->
+    {% block javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Initialize materialize data picker
+                $('.datepicker').datepicker({
+                    'format': 'yyyy-mm-dd'
+                });
+                $('select').formSelect();
+
+            });
+    </script>
+    {% endblock javascript %}
 </body>
 
 </html>
