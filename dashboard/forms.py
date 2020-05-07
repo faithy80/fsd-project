@@ -19,12 +19,6 @@ class ContentUploadForm(forms.ModelForm):
     A form to upload content
     """
 
-    content = forms.FileField(
-        label='Upload content',
-        required=True,
-        help_text='Upload .pdf, .jpg, .png, .doc, .docx, .xls or .xlsx file only.',
-    )
-
     class Meta:
         model = ContentUpload
         fields = ['title', 'content']
