@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Profile, ContentUpload
 from .forms import ContentUploadForm
@@ -19,7 +19,7 @@ def dashboard(request):
             return render(request, 'teacher.html')
 
         elif profile.user_type == 'S':
-            uploaded_content = ContentUpload.objects.filter(user=request.user) or None
+            uploaded_content = ContentUpload.objects.filter(user=request.user) # or None
             context = {
                 'profile': profile,
                 'uploaded_content': uploaded_content,
@@ -52,3 +52,11 @@ def upload_content(request):
 
     context = {'form': form}
     return render(request, 'upload.html', context)
+
+
+def delete_content(request, pk):
+    if request.method == 'POST':
+        content = get_object_or_404(ContentUpload, pk=pk)
+        content.delete()
+
+    return redirect(reverse('dashboard'))
