@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+
+{% block page_title %}Organize a student{% endblock %}
+{% block page_header %}Organize a student{% endblock %}
+
+{% block content %}
+<p>Teacher: {{ request.user.get_full_name }}</p>>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ select_form|materializecss }}
+    <button type="submit">Select</button>
+</form>
+{% endblock %}

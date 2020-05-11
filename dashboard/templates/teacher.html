@@ -5,9 +5,5 @@
 {% block page_header %}Welcome, {{ request.user.get_full_name }}!{% endblock %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {{ select_form|materializecss }}
-    <button type="submit">Select</button>
-</form>
+
 {% endblock %}
