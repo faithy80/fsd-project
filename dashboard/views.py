@@ -37,8 +37,8 @@ def dashboard(request):
             teacher = get_object_or_404(Profile, user_type='T', classname=profile.classname)
             teacher_content = ContentUpload.objects.filter(user=teacher.user.id)
 
+            # context appended
             context['teacher_content'] = teacher_content
-            print(context)
 
             # renders the student dashboard 
             return render(request, 'student.html', context)
