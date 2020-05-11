@@ -40,4 +40,32 @@
 <p>Nothing is uploaded yet.</p>
 {% endif %}
 
+<h5>The teacher's uploaded content</h5>
+
+{% if teacher_content %}
+<table class="responsive-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Download</th>
+            <th>Upload date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in teacher_content %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>
+                <a href="{{ item.content.url }}" class="waves-effect waves-light btn" target="_blank">Download</a>
+            </td>
+            <td>{{ item.date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>Nothing is uploaded yet.</p>
+{% endif %}
+
 {% endblock %}
