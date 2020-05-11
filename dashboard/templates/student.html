@@ -7,6 +7,8 @@
 
 <a href="{% url 'upload_content' %}" class="waves-effect waves-light btn">Upload content</a>
 
+<h5>Uploaded content</h5>
+
 {% if uploaded_content %}
 <table class="responsive-table">
     <thead>
@@ -34,6 +36,8 @@
         {% endfor %}
     </tbody>
 </table>
+{% else %}
+<p>Nothing is uploaded yet.</p>
 {% endif %}
 
 {% endblock %}
