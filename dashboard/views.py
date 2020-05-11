@@ -20,7 +20,7 @@ def dashboard(request):
 
         # if the user is a teacher
         if profile.user_type == 'T':
-            student_choices = Profile.objects.filter(user_type='S')
+            student_choices = Profile.objects.filter(user_type='S').filter(classname=profile.classname)
             select_form = ChooseStudentForm(student_choices=student_choices)
 
             # renders the teacher dashboard
