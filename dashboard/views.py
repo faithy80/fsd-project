@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Profile, ContentUpload
-from .forms import ContentUploadForm
+from .forms import ContentUploadForm, ChooseStudentForm
 
 
 def dashboard(request):
@@ -9,21 +9,35 @@ def dashboard(request):
     Determines the user type and renders the correct dashboard
     """
 
+    # if the user is an admin
     if request.user.is_superuser:
+        # renders the custom admin dashboard
         return render(request, 'admin.html')
 
     else:
-        profile = Profile.objects.get(user_id=request.user.id)
+        # get the profile of the user
+        profile = get_object_or_404(Profile, user_id=request.user.id)
 
+        # if the user is a teacher
         if profile.user_type == 'T':
-            return render(request, 'teacher.html')
+            student_choices = Profile.objects.filter(user_type='S')
+            select_form = ChooseStudentForm(student_choices=student_choices)
 
+            # renders the teacher dashboard
+            context = {
+                'select_form': select_form,
+            }
+            return render(request, 'teacher.html', context)
+
+        # if the user is a student
         elif profile.user_type == 'S':
-            uploaded_content = ContentUpload.objects.filter(user=request.user) # or None
+            uploaded_content = ContentUpload.objects.filter(user=request.user)
+
             context = {
                 'profile': profile,
                 'uploaded_content': uploaded_content,
             }
+            # renders the student dashboard 
             return render(request, 'student.html', context)
 
 
