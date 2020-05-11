@@ -18,22 +18,24 @@ def dashboard(request):
         # get the user's profile
         profile = get_object_or_404(Profile, user_id=request.user.id)
 
+        # get the user's uploaded content
+        uploaded_content = ContentUpload.objects.filter(user=request.user)
+
+        # gather the context to render the template 
+        context = {
+            'uploaded_content': uploaded_content,
+        }
+
         # if the user is a teacher
         if profile.user_type == 'T':
-           
-            context = {}
             # renders the teacher dashboard
             return render(request, 'teacher.html', context)
 
         # if the user is a student
         elif profile.user_type == 'S':
-            uploaded_content = ContentUpload.objects.filter(user=request.user)
-
-            context = {
-                'uploaded_content': uploaded_content,
-            }
             # renders the student dashboard 
             return render(request, 'student.html', context)
+
 
 def organize_a_student(request):
     # get the profile of the user
@@ -48,6 +50,7 @@ def organize_a_student(request):
     }
     # renders the view to organize the student
     return render(request, 'organize_student.html', context)
+
 
 def upload_content(request):
     """
