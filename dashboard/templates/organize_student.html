@@ -5,11 +5,11 @@
 {% block page_header %}Organize a student{% endblock %}
 
 {% block content %}
-<p>Teacher: {{ request.user.get_full_name }}</p>>
+<h5>Teacher: {{ request.user.get_full_name }}</h5>
 
 <form method="POST">
     {% csrf_token %}
     {{ select_form|materializecss }}
-    <button type="submit">Select</button>
+    <button type="submit" class="waves-effect waves-light btn">Select</button>
 </form>
 {% endblock %}
