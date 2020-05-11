@@ -23,6 +23,16 @@ class ContentUploadForm(forms.ModelForm):
         model = ContentUpload
         fields = ['title', 'content']
 
+    def __init__(self, *args, **kwargs):
+        """
+        Set autofocus attribute to the title field
+        """
+
+        super(ContentUploadForm, self).__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update(
+            {'autofocus': 'autofocus'}
+        )
+
     def clean_content(self, *args, **kwargs):
         """
         Checks if the file to upload is supported
