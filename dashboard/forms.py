@@ -42,18 +42,27 @@ class ChooseStudentForm(forms.Form):
     A form to select a student in the teacher dashboard
     """
 
-    student_choices = forms.ChoiceField(label="Students", choices=[], required=True)
+    student_choices = forms.ChoiceField(
+        label="Please select a student",
+        choices=[],
+        required=True,
+    )
 
     def __init__(self, *args, **kwargs):
         """
         Populating the student choices from the passed queryset
         """
 
-        student_choices =[('', 'Please select a student')]
+        student_choices =[]
         choices = kwargs.pop('student_choices')
 
         for choice in choices:
-            student_choices.append((choice.user.username, choice.user.get_full_name()))
+            student_choices.append(
+                (
+                    choice.user.username,
+                    choice.user.get_full_name()
+                )
+            )
 
         super().__init__(*args, **kwargs)
         self.fields['student_choices'].choices = student_choices
