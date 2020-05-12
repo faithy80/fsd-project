@@ -35,15 +35,21 @@ class ContentUploadForm(forms.ModelForm):
 
     def clean_content(self, *args, **kwargs):
         """
-        Checks if the file to upload is supported
+        Checks if the file to upload is supported and
+        its size does not exceed 10MB
         """
     
         valid_extensions = ['.pdf', '.doc', '.docx', '.jpg', '.png', '.xlsx', '.xls']
         content = self.cleaned_data.get('content')
+        filesize = content.size
         ext = os.path.splitext(content.name)[1]
 
         if not ext.lower() in valid_extensions:
-            raise ValidationError('Unsupported file.')
+            self.add_error('content', 'Unsupported file.')
+            #raise ValidationError('Unsupported file.')
+
+        if filesize > 10485760:
+            raise ValidationError('The maximum file size that can be uploaded is 10MB.')
 
         return content
 
