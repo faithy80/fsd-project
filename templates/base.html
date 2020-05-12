@@ -24,9 +24,26 @@
 <body>
     <nav class="nav-wrapper">
         <div class="container">
-            <a href="{% url 'index' %}" class="brand-logo">Cloud School</a>
+            <a href="{% url 'index' %}" class="brand-logo">
+                <i class="material-icons">cloud</i>
+                <span class="hide-on-med-and-down">Cloud school</span>
+            </a>
 
-            <ul class="right">
+            <a href="#" data-target="mobile" class="sidenav-trigger right">
+                <i class="material-icons">menu</i>
+            </a>
+
+            <ul class="right hide-on-med-and-down">
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="#">Profile</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+
+            <ul class="sidenav" id="mobile">
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <li><a href="#">Profile</a></li>
@@ -80,6 +97,9 @@
             // Accordion init
             $('.collapsible').collapsible();
             });
+
+            // Sidenav init
+            $('.sidenav').sidenav();
     </script>
 </body>
 
