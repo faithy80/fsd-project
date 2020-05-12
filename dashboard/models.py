@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from gdstorage.storage import GoogleDriveStorage
+
+# Define Google Drive Storage
+gd_storage = GoogleDriveStorage()
 
 
 class Profile(models.Model):
@@ -46,7 +50,7 @@ class ContentUpload(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=100)
-    content = models.FileField('Upload content')
+    content = models.FileField('Upload content', storage=gd_storage)
     date = models.DateField(auto_now_add=True)
 
     class Meta:

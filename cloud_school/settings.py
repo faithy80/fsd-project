@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gdstorage',
     'materializecssform',
     'home',
     'accounts',
@@ -145,3 +146,7 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/2.2/topics/auth/default/
 
 LOGOUT_REDIRECT_URL = '/'
+
+# Google Drive Storage Settings
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'key.json'
+GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = '/cloud-school/'

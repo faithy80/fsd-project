@@ -2,3 +2,4 @@
 *.pyc
 env.py
 /media/*
+*json
