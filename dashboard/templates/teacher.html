@@ -8,37 +8,44 @@
 
 <a href="{% url 'upload_content' %}" class="waves-effect waves-light btn">Upload content</a>
 
-<h5>My uploaded content</h5>
+<ul class="collapsible" data-collapsible="accordion">
+    <li class="active">
+        <div class="collapsible-header">
+            <i class="material-icons">cloud_upload</i>My uploaded content</div>
+        <div class="collapsible-body">
+            {% if uploaded_content %}
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Download</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
 
-{% if uploaded_content %}
-<table class="responsive-table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Download</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {% for item in uploaded_content %}
-        <tr>
-            <td>{{ item.title }}</td>
-            <td>
-                <a href="{{ item.content.url }}" class="waves-effect waves-light btn" target="_blank">Download</a>
-            </td>
-            <td>
-                <form method="POST" action="{% url 'delete_content' item.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class="waves-effect waves-light btn red">Delete</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% else %}
-    <p>Nothing is uploaded yet.</p>
-{% endif %}
+                <tbody>
+                    {% for item in uploaded_content %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>
+                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn"
+                                target="_blank">Download</a>
+                        </td>
+                        <td>
+                            <form method="POST" action="{% url 'delete_content' item.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="waves-effect waves-light btn red">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Nothing is uploaded yet.</p>
+            {% endif %}
+        </div>
+    </li>
+</ul>
 
 {% endblock %}

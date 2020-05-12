@@ -64,13 +64,16 @@
 
     <script>
         $(document).ready(function () {
+            // Date picker init
+            $('.datepicker').datepicker({
+                'format': 'yyyy-mm-dd'
+            });
 
-            // Initialize materialize data picker
-                $('.datepicker').datepicker({
-                    'format': 'yyyy-mm-dd'
-                });
-                $('select').formSelect();
-
+            // Select form init
+            $('select').formSelect();
+            
+            // Accordion init
+            $('.collapsible').collapsible();
             });
     </script>
     {% endblock javascript %}
