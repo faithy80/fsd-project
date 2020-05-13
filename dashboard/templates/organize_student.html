@@ -11,5 +11,6 @@
     {% csrf_token %}
     {{ select_form|materializecss }}
     <button type="submit" class="waves-effect waves-light btn">Select</button>
+    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn">Go back</a>
 </form>
 {% endblock %}
