@@ -5,7 +5,6 @@
 {% block page_header %}Organize a student{% endblock %}
 
 {% block content %}
-<h5>Teacher: {{ request.user.get_full_name }}</h5>
 
 <form method="POST">
     {% csrf_token %}
@@ -13,4 +12,51 @@
     <button type="submit" class="waves-effect waves-light btn">Select</button>
     <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn">Go back</a>
 </form>
+
+{% if student_profile %}
+<ul class="collapsible" data-collapsible="accordion">
+    <li class="active">
+        <div class="collapsible-header">
+            <i class="material-icons">cloud_upload</i>{{ student_profile.user.get_full_name }}'s uploaded content
+        </div>
+
+        <div class="collapsible-body">
+            {% if student_content %}
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Download</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in student_content %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>
+                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn"
+                                target="_blank">Download</a>
+                        </td>
+                        <td>
+                            <form method="POST" action="{% url 'delete_content' item.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="waves-effect waves-light btn red">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% else %}
+            <p>Nothing is uploaded yet.</p>
+            {% endif %}
+        </div>
+    </li>
+</ul>
+
+{% endif %}
+
 {% endblock %}

@@ -52,9 +52,20 @@ def organize_a_student(request):
     student_choices = Profile.objects.filter(user_type='S').filter(classname=profile.classname)
     select_form = ChooseStudentForm(student_choices=student_choices)
 
+    # initialize context
     context = {
         'select_form': select_form,
     }
+
+    if request.method == 'POST':
+        # get the student's profile
+        student_profile = get_object_or_404(Profile, user=request.POST['student_choices'])
+        context['student_profile'] = student_profile
+    
+        # gather the student's uploaded contents 
+        student_content = ContentUpload.objects.filter(user=request.POST['student_choices'])
+        context['student_content'] = student_content
+    
     # renders the view to organize the student
     return render(request, 'organize_student.html', context)
 

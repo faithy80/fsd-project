@@ -75,7 +75,7 @@ class ChooseStudentForm(forms.Form):
         for choice in choices:
             student_choices.append(
                 (
-                    choice.user.username,
+                    choice.user.id,
                     choice.user.get_full_name()
                 )
             )
