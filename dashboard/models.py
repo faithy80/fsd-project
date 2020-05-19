@@ -45,13 +45,13 @@ class Profile(models.Model):
 
 class ContentUpload(models.Model):
     """
-    Model definition for the user profile
+    Model definition for the content upload.
     """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('Title', max_length=100)
     content = models.FileField('Upload content', storage=gd_storage)
-    date = models.DateField(auto_now_add=True)
+    upload_date = models.DateField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Content'
@@ -59,11 +59,16 @@ class ContentUpload(models.Model):
 
     def __str__(self):
         """
-        Unicode representation of the content upload model.
+        Unicode representation of the content upload.
         """
 
         return self.user.username + ' [' + str(self.id) + ']'
 
     def delete(self, *args, **kwargs):
+        """
+        The file from the media folder also deleted on the
+        removal from the database
+        """
+
         self.content.delete()
         super().delete(*args, **kwargs)
