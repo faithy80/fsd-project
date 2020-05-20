@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Profile, ContentUpload
 from .forms import ContentUploadForm, ChooseStudentForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def dashboard(request):
     """
     Determines the user type and renders the correct dashboard
@@ -43,7 +45,7 @@ def dashboard(request):
             # renders the student dashboard 
             return render(request, 'student.html', context)
 
-
+@login_required
 def organize_a_student(request):
     # get the profile of the user
     profile = get_object_or_404(Profile, user_id=request.user.id)
@@ -70,6 +72,7 @@ def organize_a_student(request):
     return render(request, 'organize_student.html', context)
 
 
+@login_required
 def upload_content(request):
     """
     Renders the template to upload contents
@@ -96,7 +99,7 @@ def upload_content(request):
     context = {'form': form}
     return render(request, 'upload.html', context)
 
-
+@login_required
 def delete_content(request, pk):
     if request.method == 'POST':
         content = get_object_or_404(ContentUpload, pk=pk)

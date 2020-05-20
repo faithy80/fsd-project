@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from .forms import LoginForm, RegistrationForm
 from dashboard.forms import ProfileForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def logout(request):
     """
     Logs the user out
