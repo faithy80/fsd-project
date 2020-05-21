@@ -8,6 +8,11 @@
 <form method="POST">
     {% csrf_token %}
     {{ login_form|materializecss }}
+    
+    <p>
+        <a href="{% url 'password_reset' %}">Forgot my password</a>
+    </p>
+
     <button class="waves-effect waves-light btn" type="submit">Login<i class="material-icons right">done</i></button>
 </form>
 {% endblock %}
