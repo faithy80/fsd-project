@@ -35,6 +35,7 @@
 
             <ul class="right hide-on-med-and-down">
                 {% if user.is_authenticated %}
+                <li><a href="{% url 'change_password' %}">Change Password</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <li><a href="#">Profile</a></li>
                 {% else %}
@@ -45,6 +46,7 @@
 
             <ul class="sidenav" id="mobile">
                 {% if user.is_authenticated %}
+                <li><a href="{% url 'change_password' %}">Change Password</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 <li><a href="#">Profile</a></li>
                 {% else %}
