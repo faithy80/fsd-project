@@ -10,12 +10,12 @@
     {% csrf_token %}
     {{ select_form|materializecss }}
     
-    <button type="submit" class="waves-effect waves-light btn">
+    <button type="submit" class="waves-effect waves-light btn custom-btn">
         Select
         <i class="material-icons left">check</i>
     </button>
 
-    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn">
+    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn custom-btn">
         Back to dashboard
         <i class="material-icons left">arrow_back</i>
     </a>
@@ -48,7 +48,7 @@
                         <td>{{ item.description }}</td>
                         
                         <td>
-                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn"
+                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small"
                                 target="_blank">
                                 Download
                                 <i class="material-icons left">cloud_download</i>
@@ -59,7 +59,7 @@
                             <form method="POST" action="{% url 'delete_content' item.pk %}">
                                 {% csrf_token %}
                                 
-                                <button type="submit" class="waves-effect waves-light btn red">
+                                <button type="submit" class="waves-effect waves-light btn btn-small red">
                                     Delete
                                     <i class="material-icons left">delete</i>
                                 </button>

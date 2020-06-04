@@ -4,12 +4,12 @@
 {% block page_header %}Welcome, {{ request.user.get_full_name }}!{% endblock %}
 
 {% block content %}
-<a href="{% url 'organize_a_student' %}" class="waves-effect waves-light btn">
+<a href="{% url 'organize_a_student' %}" class="waves-effect waves-light btn custom-btn">
     Organize a student
     <i class="material-icons left">school</i>
 </a>
 
-<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn">
+<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn custom-btn">
     Upload content
     <i class="material-icons left">cloud_upload</i>
 </a>
@@ -40,7 +40,7 @@
                         <td>{{ item.description }}</td>
                         
                         <td>
-                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn"
+                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small"
                                 target="_blank">
                                 Download
                                 <i class="material-icons left">cloud_download</i>
@@ -51,7 +51,7 @@
                             <form method="POST" action="{% url 'delete_content' item.pk %}">
                                 {% csrf_token %}
 
-                                <button type="submit" class="waves-effect waves-light btn red">
+                                <button type="submit" class="waves-effect waves-light btn btn-small red">
                                     Delete
                                     <i class="material-icons left">delete</i>
                                 </button>
