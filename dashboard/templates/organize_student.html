@@ -9,15 +9,24 @@
 <form method="POST">
     {% csrf_token %}
     {{ select_form|materializecss }}
-    <button type="submit" class="waves-effect waves-light btn">Select</button>
-    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn">Go back</a>
+    
+    <button type="submit" class="waves-effect waves-light btn">
+        Select
+        <i class="material-icons left">check</i>
+    </button>
+
+    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn">
+        Back to dashboard
+        <i class="material-icons left">arrow_back</i>
+    </a>
 </form>
 
 {% if student_profile %}
 <ul class="collapsible" data-collapsible="accordion">
     <li class="active">
         <div class="collapsible-header">
-            <i class="material-icons">cloud_upload</i>{{ student_profile.user.get_full_name }}'s uploaded content
+            <i class="material-icons">cloud_upload</i>
+            {{ student_profile.user.get_full_name }}'s uploaded content
         </div>
 
         <div class="collapsible-body">
@@ -26,7 +35,9 @@
                 <thead>
                     <tr>
                         <th>Title</th>
+
                         <th>Download</th>
+                        
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -35,14 +46,23 @@
                     {% for item in student_content %}
                     <tr>
                         <td>{{ item.title }}</td>
+                        
                         <td>
                             <a href="{{ item.content.url }}" class="waves-effect waves-light btn"
-                                target="_blank">Download</a>
+                                target="_blank">
+                                Download
+                                <i class="material-icons left">cloud_download</i>
+                            </a>
                         </td>
+
                         <td>
                             <form method="POST" action="{% url 'delete_content' item.pk %}">
                                 {% csrf_token %}
-                                <button type="submit" class="waves-effect waves-light btn red">Delete</button>
+                                
+                                <button type="submit" class="waves-effect waves-light btn red">
+                                    Delete
+                                    <i class="material-icons left">delete</i>
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -51,7 +71,7 @@
             </table>
 
             {% else %}
-            <p>Nothing is uploaded yet.</p>
+                <p>Nothing is uploaded yet.</p>
             {% endif %}
         </div>
     </li>

@@ -9,10 +9,26 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|materializecss }}
-    <p>Upload .pdf, .jpg, .png, .doc, .docx, .xls or .xlsx file only.</p>
-    <p>The maximum file size is 10MB.</p>
-    <button type="submit" class="waves-effect waves-light btn">Upload</button>
-    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn">Go back</a>
+
+    <div class="upload-msg">
+        <p>
+            Upload .pdf, .jpg, .png, .doc, .docx, .xls or .xlsx file only.
+        </p>
+
+        <p>
+            The maximum file size is 10MB.
+        </p>
+    </div>
+    
+    <button type="submit" class="waves-effect waves-light btn">
+        Upload
+        <i class="material-icons left">cloud_upload</i>
+    </button>
+    
+    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn">
+        Back to dashboard
+        <i class="material-icons left">arrow_back</i>
+    </a>
 </form>
 
 {% endblock %}
