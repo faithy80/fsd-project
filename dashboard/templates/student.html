@@ -22,7 +22,7 @@
             <table class="responsive-table">
                 <thead>
                     <tr>
-                        <th>Title</th>
+                        <th>Description</th>
 
                         <th>Download</th>
 
@@ -33,7 +33,7 @@
                 <tbody>
                     {% for item in uploaded_content %}
                     <tr>
-                        <td>{{ item.title }}</td>
+                        <td>{{ item.description }}</td>
 
                         <td>
                             <a href="{{ item.content.url }}" class="waves-effect waves-light btn"
@@ -75,7 +75,7 @@
             <table class="responsive-table">
                 <thead>
                     <tr>
-                        <th>Title</th>
+                        <th>Description</th>
 
                         <th>Download</th>
 
@@ -86,7 +86,7 @@
                 <tbody>
                     {% for item in teacher_content %}
                     <tr>
-                        <td>{{ item.title }}</td>
+                        <td>{{ item.description }}</td>
 
                         <td>
                             <a href="{{ item.content.url }}" class="waves-effect waves-light btn"

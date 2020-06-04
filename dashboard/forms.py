@@ -21,15 +21,15 @@ class ContentUploadForm(forms.ModelForm):
 
     class Meta:
         model = ContentUpload
-        fields = ['title', 'content']
+        fields = ['description', 'content']
 
     def __init__(self, *args, **kwargs):
         """
-        Set autofocus attribute to the title field
+        Set autofocus attribute to the description field
         """
 
         super(ContentUploadForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update(
+        self.fields['description'].widget.attrs.update(
             {'autofocus': 'autofocus'}
         )
 
@@ -45,8 +45,7 @@ class ContentUploadForm(forms.ModelForm):
         ext = os.path.splitext(content.name)[1]
 
         if not ext.lower() in valid_extensions:
-            self.add_error('content', 'Unsupported file.')
-            #raise ValidationError('Unsupported file.')
+            raise ValidationError('Unsupported file.')
 
         if filesize > 10485760:
             raise ValidationError('The maximum file size that can be uploaded is 10MB.')

@@ -49,7 +49,7 @@ class ContentUpload(models.Model):
     """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField('Title', max_length=100)
+    description = models.CharField('Description', max_length=200)
     content = models.FileField('Upload content', storage=gd_storage)
     upload_date = models.DateField(auto_now_add=True)
 
