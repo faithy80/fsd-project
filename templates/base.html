@@ -56,7 +56,9 @@
     </nav>
 
     <div class="container">
-        <h4>{% block page_header %}{% endblock page_header %}</h4>
+        <h4 class="header">
+            {% block page_header %}{% endblock page_header %}
+        </h4>
 
         {% if messages %}
             {% for message in messages %}
