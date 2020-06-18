@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, ContentUpload
+from .models import Profile, ContentUpload, Messages
 import os
 from django.core.exceptions import ValidationError
 
@@ -52,6 +52,7 @@ class ContentUploadForm(forms.ModelForm):
 
         return content
 
+
 class ChooseStudentForm(forms.Form):
     """
     A form to select a student in the teacher dashboard
@@ -81,3 +82,36 @@ class ChooseStudentForm(forms.Form):
 
         super().__init__(*args, **kwargs)
         self.fields['student_choices'].choices = student_choices
+
+
+class MessagesForm(forms.ModelForm):
+    """
+    A form for messages
+    """
+
+    class Meta:
+        model = Messages
+        fields = ['message']
+
+    def __init__(self, *args, **kwargs):
+        """
+        Set autofocus attribute to the message field
+        """
+
+        super(MessagesForm, self).__init__(*args, **kwargs)
+        self.fields['message'].widget.attrs.update(
+            {'autofocus': 'autofocus'}
+        )
+
+    def clean_to_user(self, *args, **kwargs):
+        """
+        Checks if from_user is not the same as to_user
+        """
+    
+        to_user = self.cleaned_data.get('to_user')
+        from_user = self.cleaned_data.get('from_user')
+        
+        if to_user == from_user:
+            raise ValidationError("The two users cannot be the same!")
+
+        return to_user
