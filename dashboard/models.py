@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from gdstorage.storage import GoogleDriveStorage
@@ -29,7 +30,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_type = models.CharField('User type', max_length=1, choices=USER_TYPE)
-    classname = models.CharField('Class', max_length=3, choices=CLASSES)    
+    classname = models.CharField('Class', max_length=3, choices=CLASSES)
     
     class Meta:
         verbose_name = 'Profile'
@@ -72,3 +73,35 @@ class ContentUpload(models.Model):
 
         self.content.delete()
         super().delete(*args, **kwargs)
+
+
+class Messages(models.Model):
+    """
+    Model definition for the messages.
+    """
+
+    from_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='from_user',
+    )
+    to_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='to_user',
+    )
+    message = models.CharField('Message', max_length=200)
+    message_date = models.DateTimeField(
+        default=timezone.now,
+    )
+
+    class Meta:
+        verbose_name = 'Message'
+        verbose_name_plural = 'Messages'
+
+    def __str__(self):
+        """
+        Unicode representation of the messages.
+        """
+
+        return self.from_user.username + ' - ' + self.to_user.username
