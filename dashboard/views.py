@@ -45,7 +45,7 @@ def dashboard(request):
                 (Q(from_user=teacher.user.id) & Q(to_user=profile.user.id))
                 |
                 (Q(from_user=profile.user.id) & Q(to_user=teacher.user.id))
-            )
+            ).order_by('message_date')
 
             # context appended
             context['teacher_content'] = teacher_content
@@ -82,7 +82,7 @@ def organize_a_student(request):
                 (Q(from_user=student_profile.user.id) & Q(to_user=profile.user.id))
                 |
                 (Q(from_user=profile.user.id) & Q(to_user=student_profile.user.id))
-        )
+        ).order_by('message_date')
         context['chat'] = chat
 
     # renders the view to organize the student
