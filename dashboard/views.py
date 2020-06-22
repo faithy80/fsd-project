@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .models import Profile, ContentUpload
+from .models import Profile, ContentUpload, Messages
 from .forms import ContentUploadForm, ChooseStudentForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 @login_required
@@ -39,8 +40,16 @@ def dashboard(request):
             teacher = get_object_or_404(Profile, user_type='T', classname=profile.classname)
             teacher_content = ContentUpload.objects.filter(user=teacher.user.id)
 
+            # gather the chat
+            chat = Messages.objects.filter(
+                (Q(from_user=teacher.user.id) & Q(to_user=profile.user.id))
+                |
+                (Q(from_user=profile.user.id) & Q(to_user=teacher.user.id))
+            )
+
             # context appended
             context['teacher_content'] = teacher_content
+            context['chat'] = chat
 
             # renders the student dashboard 
             return render(request, 'student.html', context)
