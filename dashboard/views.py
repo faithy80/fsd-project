@@ -76,7 +76,15 @@ def organize_a_student(request):
         # gather the student's uploaded contents 
         student_content = ContentUpload.objects.filter(user=request.POST['student_choices'])
         context['student_content'] = student_content
-    
+
+        # gather the chat
+        chat = Messages.objects.filter(
+                (Q(from_user=student_profile.user.id) & Q(to_user=profile.user.id))
+                |
+                (Q(from_user=profile.user.id) & Q(to_user=student_profile.user.id))
+        )
+        context['chat'] = chat
+
     # renders the view to organize the student
     return render(request, 'organize_student.html', context)
 

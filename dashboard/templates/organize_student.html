@@ -75,6 +75,25 @@
             {% endif %}
         </div>
     </li>
+
+    <li>
+        <div class="collapsible-header">
+            <i class="material-icons left">message</i>
+            Messages
+        </div>
+
+        <div class="collapsible-body">
+            {% if chat %}
+                {% for item in chat %}
+                    <div>
+                        [{{item.message_date}}] &lt;{{item.from_user.get_full_name}}&gt; {{item.message}}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No messages yet.</p>
+            {% endif %}
+        </div>
+    </li>
 </ul>
 
 {% endif %}
