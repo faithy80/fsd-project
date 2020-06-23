@@ -125,6 +125,9 @@ def delete_content(request, pk):
         content = get_object_or_404(ContentUpload, pk=pk)
         content.delete()
 
+    # send feedback
+    messages.success(request, "Your content was deleted.")
+
     # redirect to the previous page
     return redirect(request.META.get('HTTP_REFERER'))
 
