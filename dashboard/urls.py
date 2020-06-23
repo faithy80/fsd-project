@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, upload_content, delete_content, organize_a_student
+from .views import dashboard, upload_content, delete_content, organize_a_student, send_message
 
 
 urlpatterns = [
@@ -7,4 +7,5 @@ urlpatterns = [
     path('upload/', upload_content, name='upload_content'),
     path('delete/<int:pk>/', delete_content, name='delete_content'),
     path('organize', organize_a_student, name='organize_a_student'),
+    path('send_message/<int:from_user_id>/<int:to_user_id>', send_message, name='send_message'),
 ]

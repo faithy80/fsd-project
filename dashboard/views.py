@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Profile, ContentUpload, Messages
-from .forms import ContentUploadForm, ChooseStudentForm
+from .forms import ContentUploadForm, ChooseStudentForm, MessagesForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponseRedirect
 
 
 @login_required
@@ -25,9 +24,14 @@ def dashboard(request):
         # get the user's uploaded content
         uploaded_content = ContentUpload.objects.filter(user=request.user)
 
+        # prepare the message form
+        message_form = MessagesForm()
+
         # gather the context to render the template 
         context = {
+            'profile': profile,
             'uploaded_content': uploaded_content,
+            'message_form': message_form,
         }
 
         # if the user is a teacher
@@ -37,7 +41,7 @@ def dashboard(request):
 
         # if the user is a student
         elif profile.user_type == 'S':
-            # get the teacher's uploaded content
+            # get the teacher's profile and uploaded content
             teacher = get_object_or_404(Profile, user_type='T', classname=profile.classname)
             teacher_content = ContentUpload.objects.filter(user=teacher.user.id)
 
@@ -49,6 +53,7 @@ def dashboard(request):
             ).order_by('message_date')
 
             # context appended
+            context['teacher'] = teacher
             context['teacher_content'] = teacher_content
             context['chat'] = chat
 
@@ -113,6 +118,7 @@ def upload_content(request):
     context = {'form': form}
     return render(request, 'upload.html', context)
 
+
 @login_required
 def delete_content(request, pk):
     if request.method == 'POST':
@@ -120,4 +126,32 @@ def delete_content(request, pk):
         content.delete()
 
     # redirect to the previous page
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def send_message(request, from_user_id, to_user_id):
+    # if method is POST
+    if request.method == 'POST':
+        # gather information for the message
+        from_user = get_object_or_404(Profile, pk=from_user_id)
+        to_user = get_object_or_404(Profile, pk=to_user_id)
+        form = MessagesForm(request.POST)
+
+        # form validation
+        if form.is_valid():
+            # add users and save message
+            message = form.save(commit=False)
+            message.from_user = from_user.user
+            message.to_user = to_user.user
+            message.save()
+
+            # send a feedback
+            messages.success(request, "Your message was sent.")
+        
+        else:
+            # also send feedback on error
+            messages.error(request, "Your message was not sent.")
+
+    # redirect to the previous page
+    return redirect(request.META.get('HTTP_REFERER'))
