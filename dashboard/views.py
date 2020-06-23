@@ -24,23 +24,36 @@ def dashboard(request):
         # get the user's uploaded content
         uploaded_content = ContentUpload.objects.filter(user=request.user)
 
-        # prepare the message form
-        message_form = MessagesForm()
-
         # gather the context to render the template 
         context = {
             'profile': profile,
             'uploaded_content': uploaded_content,
-            'message_form': message_form,
         }
 
         # if the user is a teacher
         if profile.user_type == 'T':
+            if request.method == 'POST' and 'student_choices' in request.POST:
+                # prepare student id
+                student_id = get_object_or_404(Profile, user=request.POST['student_choices']).user.id
+                
+                # redirects to the organize a student account dashboard
+                return redirect(reverse('organize_a_student', args=(student_id,)))
+            
+            # gather information for the student selector
+            student_choices = Profile.objects.filter(user_type='S').filter(classname=profile.classname)
+            select_form = ChooseStudentForm(student_choices=student_choices)
+
+            # append context
+            context['select_form'] = select_form
+
             # renders the teacher dashboard
             return render(request, 'teacher.html', context)
 
         # if the user is a student
         elif profile.user_type == 'S':
+            # prepare the message form
+            message_form = MessagesForm()
+
             # get the teacher's profile and uploaded content
             teacher = get_object_or_404(Profile, user_type='T', classname=profile.classname)
             teacher_content = ContentUpload.objects.filter(user=teacher.user.id)
@@ -52,22 +65,32 @@ def dashboard(request):
                 (Q(from_user=profile.user.id) & Q(to_user=teacher.user.id))
             ).order_by('message_date')
 
-            # context appended
+            # append context
             context['teacher'] = teacher
             context['teacher_content'] = teacher_content
             context['chat'] = chat
+            context['message_form'] = message_form
 
             # renders the student dashboard 
             return render(request, 'student.html', context)
 
 @login_required
-def organize_a_student(request):
-    # get the profile of the user
+def organize_a_student(request, student_id):
+    # get the teacher's profile
     profile = get_object_or_404(Profile, user_id=request.user.id)
 
-    # gather information for the student selector
-    student_choices = Profile.objects.filter(user_type='S').filter(classname=profile.classname)
-    select_form = ChooseStudentForm(student_choices=student_choices)
+    # get the student's profile
+    student_profile = get_object_or_404(Profile, user_id=student_id)
+    
+    # gather the student's uploaded contents 
+    student_content = ContentUpload.objects.filter(user_id=student_id)
+
+    # gather the chat
+    chat = Messages.objects.filter(
+        (Q(from_user=student_profile.user.id) & Q(to_user=profile.user.id))
+        |
+        (Q(from_user=profile.user.id) & Q(to_user=student_profile.user.id))
+    ).order_by('message_date')
 
     # prepare the message form
     message_form = MessagesForm()
@@ -75,28 +98,13 @@ def organize_a_student(request):
     # initialize context
     context = {
         'profile': profile,
-        'select_form': select_form,
         'message_form': message_form,
+        'student_profile': student_profile,
+        'student_content': student_content,
+        'chat': chat,
     }
-
-    if request.method == 'POST':
-        # get the student's profile
-        student_profile = get_object_or_404(Profile, user=request.POST['student_choices'])
-        context['student_profile'] = student_profile
-    
-        # gather the student's uploaded contents 
-        student_content = ContentUpload.objects.filter(user=request.POST['student_choices'])
-        context['student_content'] = student_content
-
-        # gather the chat
-        chat = Messages.objects.filter(
-                (Q(from_user=student_profile.user.id) & Q(to_user=profile.user.id))
-                |
-                (Q(from_user=profile.user.id) & Q(to_user=student_profile.user.id))
-        ).order_by('message_date')
-        context['chat'] = chat
-
-    # renders the view to organize the student
+        
+    # renders organize the student account dashboard
     return render(request, 'organize_student.html', context)
 
 

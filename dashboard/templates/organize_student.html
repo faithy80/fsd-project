@@ -1,27 +1,16 @@
 {% extends 'base.html' %}
 {% load materializecss %}
 
-{% block page_title %}Organize a student{% endblock %}
-{% block page_header %}Organize a student{% endblock %}
+{% block page_title %}Organize a student account{% endblock %}
+{% block page_header %}Organize {{student_profile.user.get_full_name}}&apos;s account{% endblock %}
 
 {% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ select_form|materializecss }}
-    
-    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
-        Select
-        <i class="material-icons left">check</i>
-    </button>
+<a href="{% url 'dashboard' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Back to teacher dashboard
+    <i class="material-icons left">arrow_back</i>
+</a>
 
-    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn btn-small custom-btn">
-        Back to dashboard
-        <i class="material-icons left">arrow_back</i>
-    </a>
-</form>
-
-{% if student_profile %}
 <form method="POST" action="{% url 'send_message' profile.pk student_profile.pk %}">
     {% csrf_token %}
     {{ message_form|materializecss }}    
@@ -105,7 +94,5 @@
         </div>
     </li>
 </ul>
-
-{% endif %}
 
 {% endblock %}

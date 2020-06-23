@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
+{% load materializecss %}
 
 {% block page_title %}Teacher dashboard{% endblock %}
 {% block page_header %}Welcome, {{ request.user.get_full_name }}!{% endblock %}
 
 {% block content %}
-<a href="{% url 'organize_a_student' %}" class="waves-effect waves-light btn btn-small custom-btn">
-    Organize a student
-    <i class="material-icons left">school</i>
-</a>
 
 <a href="{% url 'upload_content' %}" class="waves-effect waves-light btn btn-small custom-btn">
     Upload content
     <i class="material-icons left">cloud_upload</i>
 </a>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ select_form|materializecss }}
+    
+    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
+        Organize a student account
+        <i class="material-icons left">school</i>
+    </button>
+</form>
 
 <ul class="collapsible" data-collapsible="accordion">
     <li class="active">
