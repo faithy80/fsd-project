@@ -4,6 +4,7 @@ from .models import Profile, ContentUpload, Messages
 from .forms import ContentUploadForm, ChooseStudentForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 
 
 @login_required
@@ -122,4 +123,5 @@ def delete_content(request, pk):
         content = get_object_or_404(ContentUpload, pk=pk)
         content.delete()
 
-    return redirect(reverse('dashboard'))
+    # redirect to the previous page
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
