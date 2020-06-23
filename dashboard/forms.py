@@ -93,16 +93,6 @@ class MessagesForm(forms.ModelForm):
         model = Messages
         fields = ['message']
 
-    def __init__(self, *args, **kwargs):
-        """
-        Set autofocus attribute to the message field
-        """
-
-        super(MessagesForm, self).__init__(*args, **kwargs)
-        self.fields['message'].widget.attrs.update(
-            {'autofocus': 'autofocus'}
-        )
-
     def clean_to_user(self, *args, **kwargs):
         """
         Checks if from_user is not the same as to_user
