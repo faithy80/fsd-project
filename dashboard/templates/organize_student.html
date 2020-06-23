@@ -22,6 +22,16 @@
 </form>
 
 {% if student_profile %}
+<form method="POST" action="{% url 'send_message' profile.pk student_profile.pk %}">
+    {% csrf_token %}
+    {{ message_form|materializecss }}    
+
+    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
+        Send message
+        <i class="material-icons left">message</i>
+    </button>
+</form>
+
 <ul class="collapsible" data-collapsible="accordion">
     <li class="active">
         <div class="collapsible-header">

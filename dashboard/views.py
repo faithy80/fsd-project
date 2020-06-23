@@ -69,9 +69,14 @@ def organize_a_student(request):
     student_choices = Profile.objects.filter(user_type='S').filter(classname=profile.classname)
     select_form = ChooseStudentForm(student_choices=student_choices)
 
+    # prepare the message form
+    message_form = MessagesForm()
+
     # initialize context
     context = {
+        'profile': profile,
         'select_form': select_form,
+        'message_form': message_form,
     }
 
     if request.method == 'POST':
