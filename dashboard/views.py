@@ -106,13 +106,9 @@ def upload_content(request):
 
             messages.success(request, "Your content has been added.")
 
-            return redirect(reverse('dashboard'))
+            return redirect(reverse('dashboard'))   
 
-        else:
-            form = ContentUploadForm()    
-
-    else:
-        form = ContentUploadForm()
+    form = ContentUploadForm()
 
     context = {'form': form}
     return render(request, 'upload.html', context)
