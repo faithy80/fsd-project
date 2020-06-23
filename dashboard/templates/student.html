@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn custom-btn">
+<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn btn-small custom-btn">
     Upload content
     <i class="material-icons left">cloud_upload</i>
 </a>
@@ -15,7 +15,7 @@
     {% csrf_token %}
     {{ message_form|materializecss }}    
 
-    <button type="submit" class="waves-effect waves-light btn custom-btn">
+    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
         Send message
         <i class="material-icons left">message</i>
     </button>
@@ -47,7 +47,7 @@
                         <td>{{ item.description }}</td>
 
                         <td>
-                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small"
+                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small btn-small"
                                 target="_blank">
                                 Download
                                 <i class="material-icons left">cloud_download</i>
@@ -100,7 +100,7 @@
                         <td>{{ item.description }}</td>
 
                         <td>
-                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small"
+                            <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small btn-small"
                                 target="_blank">
                                 Download
                                 <i class="material-icons left">cloud_download</i>
