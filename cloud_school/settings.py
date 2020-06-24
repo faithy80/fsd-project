@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +32,13 @@ if os.path.exists('env.py'):
         }
     }
 else:
-    DEBUG = False
+    # Debug stays on until the end of the development
+    DEBUG = True
+
+    # Set Heroku Postgres database
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,7 +48,7 @@ else:
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://fsd-project.herokuapp.com/']
 
 
 # Application definition
