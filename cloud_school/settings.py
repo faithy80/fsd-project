@@ -31,6 +31,7 @@ if os.path.exists('env.py'):
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
 else:
     # Debug stays on until the end of the development
     DEBUG = True
@@ -48,7 +49,10 @@ else:
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ['https://fsd-project.herokuapp.com/']
+ALLOWED_HOSTS = [
+    'fsd-project.herokuapp.com',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -155,7 +159,7 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Google Drive Storage Settings
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'key.json'
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'google-credentials.json'
 GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = '/cloud-school/'
 
 # Gmail SMTP Settings
