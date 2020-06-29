@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Profile, ContentUpload, Messages
 from .forms import ContentUploadForm, ChooseStudentForm, MessagesForm
-from shop.forms import ProductForm
+from shop.forms import ProductForm, UpdateProductForm
 from shop.models import Product
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -218,3 +218,39 @@ def delete_product(request, pk):
 
     # redirect to the previous page
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def edit_product(request, pk):
+    if request.method == 'POST':
+        product_form = UpdateProductForm(
+            request.POST,
+        )
+
+        if product_form.is_valid():
+            # updating the existing product without the image field
+            Product.objects.filter(pk=pk).update(
+                product_name=request.POST['product_name'],
+                product_description=request.POST['product_description'],
+                product_price=request.POST['product_price'],
+            )
+
+            # send feedback
+            messages.success(request, 'The product has been updated.')
+
+            # redirect to the list products view
+            return redirect(reverse('list_product'))
+
+    # get the product from the database
+    product = get_object_or_404(Product, pk=pk)
+
+    # get an instance of the product form
+    product_form = UpdateProductForm(instance=product)
+
+    # setup context
+    context = {
+        'product_form': product_form
+    }
+
+    # render the edit product page
+    return render(request, 'edit_product.html', context)

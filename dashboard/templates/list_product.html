@@ -24,7 +24,7 @@
         <img class="admin-preview" src="{{item.product_image.url}}" />
 
         <p>
-            Descritption: {{item.product_description}}
+            Description: {{item.product_description}}
         </p>
 
         <p>
@@ -34,7 +34,7 @@
         <form method="POST" action="{% url 'delete_product' item.pk %}">
             {% csrf_token %}
 
-            <a href="#" class="waves-effect waves-light btn btn-small custom-btn">
+            <a href="{% url 'edit_product' item.pk %}" class="waves-effect waves-light btn btn-small custom-btn">
                 Edit
                 <i class="material-icons left">edit</i>
             </a>

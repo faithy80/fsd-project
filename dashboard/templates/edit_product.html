@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+
+{% block page_title %}Edit a product{% endblock %}
+{% block page_header %}Edit a product{% endblock %}
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ product_form|materializecss }}
+
+    <div class="upload-msg">
+        <p>
+            Uploaded image cannot be edited.
+        </p>
+    </div>
+    
+    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
+        Edit product
+        <i class="material-icons left">edit</i>
+    </button>
+    
+    <a href="{% url 'list_product' %}" class="waves-effect waves-light btn btn-small custom-btn">
+        Go back
+        <i class="material-icons left">arrow_back</i>
+    </a>
+</form>
+
+{% endblock %}
