@@ -38,3 +38,12 @@ class Product(models.Model):
         """
         
         return self.product_name
+
+    def delete(self, *args, **kwargs):
+        """
+        The file from the media folder also deleted on the
+        removal from the database
+        """
+
+        self.product_image.delete()
+        super().delete(*args, **kwargs)

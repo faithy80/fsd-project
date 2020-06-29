@@ -196,6 +196,7 @@ def add_product(request):
     }
     return render(request, 'add_product.html', context)
 
+
 @login_required
 def list_product(request):
     # gather the list of the products
@@ -204,3 +205,16 @@ def list_product(request):
         'product_list': product_list,
     }
     return render(request, 'list_product.html', context)
+
+
+@login_required
+def delete_product(request, pk):
+    if request.method == 'POST':
+        content = get_object_or_404(Product, pk=pk)
+        content.delete()
+
+    # send feedback
+    messages.success(request, "The product was deleted.")
+
+    # redirect to the previous page
+    return redirect(request.META.get('HTTP_REFERER'))

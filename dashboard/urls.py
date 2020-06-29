@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import dashboard, upload_content, delete_content, organize_a_student, send_message, add_product, list_product
+from .views import *
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path('send_message/<int:from_user_id>/<int:to_user_id>/', send_message, name='send_message'),
     path('add_product/', add_product, name='add_product'),
     path('list_product/', list_product, name='list_product'),
+    path('delete_product/<int:pk>/', delete_product, name='delete_product'),
 ]
