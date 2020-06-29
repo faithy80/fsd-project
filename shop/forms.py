@@ -15,3 +15,13 @@ class ProductForm(forms.ModelForm):
             'product_price',
             'product_image'
         ]
+    
+    def __init__(self, *args, **kwargs):
+        """
+        Set autofocus attribute to the product_name field
+        """
+
+        super(ProductForm, self).__init__(*args, **kwargs)
+        self.fields['product_name'].widget.attrs.update(
+            {'autofocus': 'autofocus'}
+        )
