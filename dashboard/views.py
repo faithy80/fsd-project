@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Profile, ContentUpload, Messages
 from .forms import ContentUploadForm, ChooseStudentForm, MessagesForm
+from shop.forms import ProductForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
@@ -171,3 +172,25 @@ def send_message(request, from_user_id, to_user_id):
 
     # redirect to the previous page
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def add_product(request):
+    if request.method == 'POST':
+        product_form = ProductForm(
+            request.POST,
+            request.FILES,
+        )
+        if product_form.is_valid():
+            product_form.save()
+
+            messages.success(request, 'The product has been added.')
+
+            # redirect to the dashboard
+            return redirect(reverse('dashboard'))
+    
+    product_form = ProductForm()
+    context = {
+        'product_form': product_form,
+    }
+    return render(request, 'add_product.html', context)

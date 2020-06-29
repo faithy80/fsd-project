@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+
+{% block page_title %}Add a product{% endblock %}
+{% block page_header %}Add a product{% endblock %}
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ product_form|materializecss }}
+
+    <div class="upload-msg">
+        <p>
+            Upload images only.
+        </p>
+
+        <p>
+            The maximum file size is 10MB.
+        </p>
+    </div>
+    
+    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
+        Add the product
+        <i class="material-icons left">add_box</i>
+    </button>
+    
+    <a href="{% url 'dashboard' %}" class="waves-effect waves-light btn btn-small custom-btn">
+        Back to dashboard
+        <i class="material-icons left">arrow_back</i>
+    </a>
+</form>
+
+{% endblock %}
