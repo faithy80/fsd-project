@@ -200,7 +200,7 @@ def add_product(request):
 @login_required
 def list_product(request):
     # gather the list of the products
-    product_list = Product.objects.all()
+    product_list = Product.objects.all().order_by('product_name')
     context = {
         'product_list': product_list,
     }
