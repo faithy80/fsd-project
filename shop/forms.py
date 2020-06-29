@@ -25,3 +25,22 @@ class ProductForm(forms.ModelForm):
         self.fields['product_name'].widget.attrs.update(
             {'autofocus': 'autofocus'}
         )
+
+    def clean_product_image(self, *args, **kwargs):
+        """
+        Checks if the file to upload is supported and
+        its size does not exceed 10MB
+        """
+    
+        valid_extensions = ['.jpg', '.bmp', '.jpeg', '.gif', '.png',]
+        image = self.cleaned_data.get('product_image')
+        filesize = image.size
+        ext = os.path.splitext(image.name)[1]
+
+        if not ext.lower() in valid_extensions:
+            raise ValidationError('Unsupported file.')
+
+        if filesize > 10485760:
+            raise ValidationError('The maximum file size that can be uploaded is 10MB.')
+
+        return image
