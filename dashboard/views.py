@@ -3,6 +3,7 @@ from django.contrib import messages
 from .models import Profile, ContentUpload, Messages
 from .forms import ContentUploadForm, ChooseStudentForm, MessagesForm
 from shop.forms import ProductForm
+from shop.models import Product
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
@@ -194,3 +195,12 @@ def add_product(request):
         'product_form': product_form,
     }
     return render(request, 'add_product.html', context)
+
+@login_required
+def list_product(request):
+    # gather the list of the products
+    product_list = Product.objects.all()
+    context = {
+        'product_list': product_list,
+    }
+    return render(request, 'list_product.html', context)

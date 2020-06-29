@@ -27,3 +27,10 @@ nav {
 .upload-msg {
     margin-top: 2rem;
 }
+
+
+/* --------------------------------- admin/list_prduct */
+
+.admin-preview {
+    height: 10rem;
+}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Admin dashboard{% endblock %}
+{% block page_header %}List products{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'dashboard' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Back to dashboard
+    <i class="material-icons left">arrow_back</i>
+</a>
+
+{% if product_list %}
+
+<div class="row">
+
+    {% for item in product_list %}
+
+    <div class="col s12 m6 l4 xl3">
+        <h5>
+            {{item.product_name}}
+        </h5>
+
+        <img class="admin-preview" src="{{item.product_image.url}}" />
+
+        <p>
+            Descritption: {{item.product_description}}
+        </p>
+
+        <p>
+            Price: {{item.product_price}} euro
+        </p>
+
+        <form method="POST" action="{% url 'delete_content' item.pk %}">
+            {% csrf_token %}
+
+            <a href="#" class="waves-effect waves-light btn btn-small custom-btn">
+                Edit
+                <i class="material-icons left">edit</i>
+            </a>
+
+            <button type="submit" class="waves-effect waves-light btn btn-small red">
+                Delete
+                <i class="material-icons left">delete</i>
+            </button>
+        </form>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<p>No product has been added yet.</p>
+
+{% endif %}
+
+</form>
+
+{% endblock %}
