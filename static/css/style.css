@@ -4,7 +4,7 @@ body {
     background-color: #f0f0f0;
 }
 
-.header{
+.header {
     margin-bottom: 2rem;
 }
 
@@ -12,6 +12,16 @@ body {
     margin-top: 1rem;
     margin-bottom: 1rem;
     margin-right: 1rem;
+}
+
+.card-custom {
+    position: relative;
+    height: 30rem;
+}
+
+.card-bottom {
+    position: absolute;
+    bottom: 1rem;
 }
 
 
@@ -26,11 +36,4 @@ nav {
 
 .upload-msg {
     margin-top: 2rem;
-}
-
-
-/* --------------------------------- admin/list_prduct */
-
-.admin-preview {
-    height: 10rem;
 }
