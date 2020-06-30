@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Cart{% endblock %}
+{% block page_header %}Cart{% endblock %}
+
+{% block content %}
+
+{% if cart %}
+
+{% else %}
+
+<p>No product has been added to the cart yet.</p>
+
+{% endif %}
+
+<a href="{% url 'shop' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Back to Shop
+    <i class="material-icons left">arrow_back</i>
+</a>
+
+{% endblock %}

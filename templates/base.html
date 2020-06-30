@@ -35,31 +35,80 @@
 
             <ul class="right hide-on-med-and-down">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'change_password' %}">Change Password</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                
+                <li>
+                    <a href="{% url 'change_password' %}">Change Password</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </li>
+                
                 {% else %}
-                <li><a href="{% url 'shop' %}">Shop</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
+                
+                <li>
+                    <a href="{% url 'shop' %}">Shop</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'register' %}">Register</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'cart' %}">
+                        <i class="material-icons">shopping_cart</i>
+                    </a>
+                </li>
+                
                 {% endif %}
+            
             </ul>
 
             <ul class="sidenav" id="mobile">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'change_password' %}">Change Password</a></li>
-                <li><a href="{% url 'logout' %}">Logout</a></li>
+                
+                <li>
+                    <a href="{% url 'change_password' %}">Change Password</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </li>
+                
                 {% else %}
-                <li><a href="{% url 'shop' %}">Shop</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
+                
+                <li>
+                    <a href="{% url 'shop' %}">Shop</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'register' %}">Register</a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'cart' %}">
+                        <i class="material-icons">shopping_cart</i>
+                    </a>
+                </li>
+
                 {% endif %}
+            
             </ul>
         </div>
     </nav>
 
     <div class="container">
         <h4 class="header">
-            {% block page_header %}{% endblock page_header %}
+            {% block page_header %}
+            {% endblock page_header %}
         </h4>
 
         {% if messages %}
