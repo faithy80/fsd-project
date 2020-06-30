@@ -5,7 +5,13 @@
 
 {% block content %}
 
-{% if cart %}
+{% if cart_items %}
+
+{% for item in cart_items %}
+
+<p>{{item.product.product_name}} {{item.quantity}}</p>
+
+{% endfor %}
 
 {% else %}
 
@@ -14,7 +20,7 @@
 {% endif %}
 
 <a href="{% url 'shop' %}" class="waves-effect waves-light btn btn-small custom-btn">
-    Back to Shop
+    Keep shopping
     <i class="material-icons left">arrow_back</i>
 </a>
 
