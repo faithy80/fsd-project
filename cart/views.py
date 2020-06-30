@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
 
-def cart(request):
+def view_cart(request):
     context = {}
-    return render(request, 'cart.html', context)
+    return render(request, 'view_cart.html', context)
