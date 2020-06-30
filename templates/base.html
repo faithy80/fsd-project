@@ -38,6 +38,7 @@
                 <li><a href="{% url 'change_password' %}">Change Password</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
+                <li><a href="{% url 'shop' %}">Shop</a></li>
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
                 {% endif %}
@@ -48,6 +49,7 @@
                 <li><a href="{% url 'change_password' %}">Change Password</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
+                <li><a href="{% url 'shop' %}">Shop</a></li>
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
                 {% endif %}

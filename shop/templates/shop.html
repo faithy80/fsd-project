@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block page_title %}School shop{% endblock %}
+{% block page_header %}School shop{% endblock %}
+
+{% block content %}
+
+{% if product_list %}
+
+<div class="row">
+
+    {% for item in product_list %}
+
+    <div class="col s12 m6 l4 xl3">
+        <h5>
+            {{item.product_name}}
+        </h5>
+
+        <img class="admin-preview" src="{{item.product_image.url}}" />
+
+        <p>
+            Description: {{item.product_description}}
+        </p>
+
+        <p>
+            Price: {{item.product_price}} euro
+        </p>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<p>No product has been added yet.</p>
+
+{% endif %}
+
+<a href="{% url 'index' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Back to Home
+    <i class="material-icons left">home</i>
+</a>
+
+{% endblock %}

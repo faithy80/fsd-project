@@ -18,6 +18,7 @@ from django.urls import path, include
 from home import urls as urls_home
 from accounts import urls as urls_accounts
 from dashboard import urls as urls_dashboard
+from shop import urls as urls_shop
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,6 +27,7 @@ urlpatterns = [
     path('', include(urls_home)),
     path('accounts/', include(urls_accounts)),
     path('dashboard/', include(urls_dashboard)),
+    path('shop/', include(urls_shop)),
 ]
 
 if settings.DEBUG:
