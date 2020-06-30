@@ -29,10 +29,11 @@
                         Price: {{item.product_price}} euro
                     </p>
 
-                    <form method="POST" action="#">
+                    <form method="POST" action="{% url 'add_to_cart' item.pk %}">
                         {% csrf_token %}
-                        
-                        <input id="quantity" type="number" class="quantity-field validate" placeholder="Quantity">
+
+                        <input name="quantity" id="quantity" type="number" class="input-field quantity-field"
+                            placeholder="Quantity" min="1" required>
 
                         <button class="waves-effect waves-light btn btn-small quantity-btn">
                             Add
