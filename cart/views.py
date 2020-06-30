@@ -7,7 +7,7 @@ def view_cart(request):
     return render(request, 'view_cart.html', context)
 
 
-def add_to_cart(request, pk):
+def add_to_cart(request, item_id):
     quantity = int(request.POST.get('quantity'))
     if request.method == 'POST':
         if quantity > 10:
@@ -16,10 +16,11 @@ def add_to_cart(request, pk):
             # add product and quantity to the session cart
             cart = request.session.get('cart', {})
 
-            if pk in list(cart.keys()):
-                cart[pk] += quantity
-            else:
-                cart[pk] = quantity
+            if str(item_id) in list(cart.keys()):
+                old_value = cart.get(str(item_id))
+                quantity += old_value
+            
+            cart[item_id] = quantity
 
             request.session['cart'] = cart
 
