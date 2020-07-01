@@ -8,20 +8,26 @@ def view_cart(request):
 
 
 def add_to_cart(request, item_id):
-    quantity = int(request.POST.get('quantity'))
     if request.method == 'POST':
+        # get quantity from the form
+        quantity = int(request.POST.get('quantity'))
+
+        # get data from the session cart
+        cart = request.session.get('cart', {})
+
+        # update quantity if product exits in the cart
+        if str(item_id) in list(cart.keys()):
+            old_value = cart.get(str(item_id))
+            quantity += old_value
+
+        # limit quantity to 10
         if quantity > 10:
             messages.error(request, "The limit is 10 for each product to buy.")
+        
         else:
-            # add product and quantity to the session cart
-            cart = request.session.get('cart', {})
-
-            if str(item_id) in list(cart.keys()):
-                old_value = cart.get(str(item_id))
-                quantity += old_value
-            
             cart[item_id] = quantity
 
+            # save data in the session cart
             request.session['cart'] = cart
 
             # send feedback
