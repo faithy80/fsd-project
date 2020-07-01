@@ -20,6 +20,7 @@ from accounts import urls as urls_accounts
 from dashboard import urls as urls_dashboard
 from shop import urls as urls_shop
 from cart import urls as urls_cart
+from checkout import urls as urls_checkout
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('dashboard/', include(urls_dashboard)),
     path('shop/', include(urls_shop)),
     path('cart/', include(urls_cart)),
+    path('checkout/', include(urls_checkout)),
 ]
 
 if settings.DEBUG:

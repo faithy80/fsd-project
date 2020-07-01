@@ -49,6 +49,11 @@
     Total price: {{price_total}} euro
 </h5>
 
+<a href="{% url 'checkout' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Checkout
+    <i class="material-icons left">shopping_cart</i>
+</a>
+
 {% else %}
 
 <p>No product has been added to the cart yet.</p>
