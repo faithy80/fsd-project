@@ -35,3 +35,29 @@ def add_to_cart(request, item_id):
     
     # redirect to the previous page
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def update_cart(request, item_id):
+    if request.method == 'POST':
+        # get quantity from the form
+        quantity = int(request.POST.get('quantity'))
+
+        # get data from the session cart
+        cart = request.session.get('cart', {})
+
+        if quantity == 0:
+            cart.pop(str(item_id))
+            messages.success(request, "The product has been removed from the cart.")
+
+        elif quantity <= 10:
+            cart[item_id] = quantity
+            messages.success(request, "The product has been updated in the cart.")
+
+        else:
+            messages.error(request, "The limit is 10 for each product to buy.")
+        
+        # save data in the session cart
+            request.session['cart'] = cart
+
+    # redirect to the previous page
+    return redirect(request.META.get('HTTP_REFERER'))

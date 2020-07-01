@@ -27,7 +27,7 @@
             <td>{{item.product.product_price}}</td>
             <td>{{item.quantity}}</td>
             <td>
-                <form method="POST" action="{% url 'add_to_cart' item.product.pk %}">
+                <form method="POST" action="{% url 'update_cart' item.product.pk %}">
                     {% csrf_token %}
 
                     <input name="quantity" id="quantity" type="number" class="input-field update-quantity-field"
