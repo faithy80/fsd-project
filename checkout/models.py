@@ -3,12 +3,12 @@ from shop.models import Product
 
 
 class Order(models.Model):
-    order_number = models.Charfield(
+    order_number = models.CharField(
         max_length=32,
         null=False,
         editable=False,
     )
-    full_name = models.Charfield(
+    full_name = models.CharField(
         max_length=100,
         null=False,
         blank=False,
@@ -24,27 +24,27 @@ class Order(models.Model):
         blank=False,
     )
     address1 = models.CharField(
-        max_lenght=80,
+        max_length=80,
         null=False,
         blank=False,
     )
     address2 = models.CharField(
-        max_lenght=80,
+        max_length=80,
         null=False,
         blank=False,
     )
     town_or_city = models.CharField(
-        max_lenght=80,
+        max_length=80,
         null=False,
         blank=False,
     )
     county = models.CharField(
-        max_lenght=40,
+        max_length=40,
         null=False,
         blank=False,
     )
     eircode = models.CharField(
-        max_lenght=20,
+        max_length=20,
         null=True,
         blank=True,
     )
