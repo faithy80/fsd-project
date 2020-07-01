@@ -7,11 +7,47 @@
 
 {% if cart_items %}
 
-{% for item in cart_items %}
+<h6>Please update product quantity to 0 to remove from the cart.</h6>
 
-<p>{{item.product.product_name}} {{item.quantity}}</p>
+<table class="table-responsive">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Update/Remove</th>
+        </tr>
+    </thead>
 
-{% endfor %}
+    <tbody>
+        {% for item in cart_items %}
+
+        <tr>
+            <td>{{item.product.product_name}}</td>
+            <td>{{item.product.product_price}}</td>
+            <td>{{item.quantity}}</td>
+            <td>
+                <form method="POST" action="{% url 'add_to_cart' item.product.pk %}">
+                    {% csrf_token %}
+
+                    <input name="quantity" id="quantity" type="number" class="input-field update-quantity-field"
+                        placeholder="Quantity" min="0" required>
+
+                    <button class="waves-effect waves-light btn btn-small quantity-btn">
+                        Update
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<h5>
+    Total price: {{price_total}} euro
+</h5>
 
 {% else %}
 

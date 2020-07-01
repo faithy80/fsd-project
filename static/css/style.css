@@ -32,6 +32,9 @@ body {
     width: 40% !important;
 }
 
+.update-quantity-field {
+    width: 5rem !important;
+}
 
 
 /* --------------------------------- navbar */
