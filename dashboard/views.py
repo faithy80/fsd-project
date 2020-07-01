@@ -6,6 +6,10 @@ from shop.forms import ProductForm, UpdateProductForm
 from shop.models import Product
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+from resizeimage import resizeimage
 
 
 @login_required
@@ -183,7 +187,30 @@ def add_product(request):
             request.FILES,
         )
         if product_form.is_valid():
-            product_form.save()
+            product = product_form.save(commit=False)
+
+            # open the original image and resize
+            pil_image_obj = Image.open(product.product_image)
+            new_image = resizeimage.resize_width(pil_image_obj, 600)
+
+            # store resized image in JPEG format
+            new_image_io = BytesIO()
+            new_image.save(new_image_io, format='JPEG')
+
+            # store the original image name
+            # and remove the original image
+            temp_name = product.product_image.name
+            product.product_image.delete(save=False)  
+
+            # replace original image to the resized one
+            product.product_image.save(
+            temp_name,
+            content=ContentFile(new_image_io.getvalue()),
+            save=False,
+            )
+
+            # save product to database
+            product.save()
 
             messages.success(request, 'The product has been added.')
 

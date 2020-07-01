@@ -1,6 +1,7 @@
 from django.db import models
 from gdstorage.storage import GoogleDriveStorage
 
+
 # Define Google Drive Storage
 gd_storage = GoogleDriveStorage()
 
@@ -27,10 +28,6 @@ class Product(models.Model):
         storage=gd_storage,
         upload_to='product_images'
     )
-    
-    class Meta:
-        verbose_name = 'Product'
-        verbose_name_plural = 'Products'
 
     def __str__(self):
         """
