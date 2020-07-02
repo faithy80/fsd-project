@@ -117,48 +117,64 @@
         </h4>
 
         {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'success' %}
-        <div class="green-text">
-            {% else %}
-            <div class="red-text">
-                {% endif %}
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
 
-            {% block content %}
-            {% endblock content %}
+        {% for message in messages %}
+
+        {% if message.tags == 'success' %}
+
+        <div class="green-text">
+            {{ message }}
         </div>
 
-        <footer>
+        {% else %}
 
-        </footer>
+        <div class="red-text">
+            {{ message }}
+        </div>
 
-        <!-- Materialize CSS javascript requirements -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        {% endif %}
 
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        {% endfor %}
 
-        <script>
-            $(document).ready(function () {
-                // Date picker init
-                $('.datepicker').datepicker({
-                    'format': 'yyyy-mm-dd'
-                });
+        {% endif %}
 
-                // Select form init
-                $('select').formSelect();
+        {% block content %}
+        {% endblock content %}
 
-                // Accordion init
-                $('.collapsible').collapsible();
+        <footer></footer>
+
+    </div>
+
+
+    <!-- Materialize CSS javascript requirements -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Stripe API -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Date picker init
+            $('.datepicker').datepicker({
+                'format': 'yyyy-mm-dd'
             });
 
-            // Sidenav init
-            $('.sidenav').sidenav();
-        </script>
+            // Select form init
+            $('select').formSelect();
+
+            // Accordion init
+            $('.collapsible').collapsible();
+        });
+
+        // Sidenav init
+        $('.sidenav').sidenav();
+    </script>
+
+    {% block postloadjs %}
+    {% endblock postloadjs %}
 </body>
 
 </html>

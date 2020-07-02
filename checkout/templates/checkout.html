@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load materializecss %}
 
 {% block page_title %}Order form{% endblock %}
@@ -6,19 +7,70 @@
 
 {% block content %}
 
-<form method="POST">
+{% if product_count > 0 %}
+
+<form method="POST" id="payment-form">
     {% csrf_token %}
-    {{ order_form|materializecss }}
+
+    <div class="row">
+        <div class="col s12 m6">
+            {{ order_form.full_name|materializecss }}
+            {{ order_form.email|materializecss }}
+            {{ order_form.phone_number|materializecss }}
+            {{ order_form.eircode|materializecss }}
+        </div>
+
+        <div class="col s12 m6">
+            {{ order_form.address1|materializecss }}
+            {{ order_form.address2|materializecss }}
+            {{ order_form.town_or_city|materializecss }}
+            {{ order_form.county|materializecss }}
+        </div>
+
+        <div class="col s12 m6">
+            <h5 class="center-align card-header">
+                Credit/debit card information
+            </h5>
+
+            <div class="card">
+                <div class="card-content">
+                    <div id="card-element"></div>
+
+                    <div id="card-errors" role="alert"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
-        Order
-        <i class="material-icons left">done</i>
+        Pay
+        <i class="material-icons left">credit_card</i>
     </button>
-    
+
     <a href="{% url 'view_cart' %}" class="waves-effect waves-light btn btn-small custom-btn">
         Back to cart
         <i class="material-icons left">arrow_back</i>
     </a>
 </form>
+
+{% else %}
+
+<h6>There is no product in the cart. Session may have expired.</h6>
+
+<a href="{% url 'index' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Back to home
+    <i class="material-icons left">arrow_back</i>
+</a>
+
+{% endif %}
+
+{% endblock %}
+
+{% block postloadjs %}
+
+{{ stripe_public_key|json_script:'id_stripe_public_key' }}
+{{ client_secret|json_script:'id_client_secret' }}
+
+<script src="{% static 'js/client.js' %}"></script>
 
 {% endblock %}
