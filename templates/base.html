@@ -62,7 +62,7 @@
                 <li>
                     <a href="{% url 'view_cart' %}">
                         {% if product_count > 0 %}
-                        <span class="badge teal white-text">{{product_count}}</span>
+                        <span class="badge red white-text">{{product_count}}</span>
                         {% endif %}
 
                         <i class="material-icons left">shopping_cart</i>
@@ -122,13 +122,13 @@
 
         {% if message.tags == 'success' %}
 
-        <div class="green-text">
+        <div class="green-text flash-message">
             {{ message }}
         </div>
 
         {% else %}
 
-        <div class="red-text">
+        <div class="red-text flash-message">
             {{ message }}
         </div>
 

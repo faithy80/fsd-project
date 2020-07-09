@@ -37,10 +37,14 @@ body {
 }
 
 
-/* --------------------------------- navbar */
+/* --------------------------------- base.html */
 
 nav {
     background-color: #2e86ab;
+}
+
+.flash-message {
+    margin-bottom: 2rem;
 }
 
 
