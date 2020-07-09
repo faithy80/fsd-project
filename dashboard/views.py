@@ -276,7 +276,8 @@ def edit_product(request, pk):
 
     # setup context
     context = {
-        'product_form': product_form
+        'product_form': product_form,
+        'item_id': pk,
     }
 
     # render the edit product page

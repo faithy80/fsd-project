@@ -18,6 +18,12 @@ body {
     margin-left: 3rem;
 }
 
+.card-btn{
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 .card-custom {
     position: relative;
     height: 30rem;

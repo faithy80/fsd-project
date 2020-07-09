@@ -33,11 +33,11 @@
                         {% csrf_token %}
 
                         <a href="{% url 'edit_product' item.pk %}"
-                            class="waves-effect waves-light btn btn-small custom-btn">
+                            class="waves-effect waves-light btn btn-small card-btn">
                             Edit
                         </a>
 
-                        <button type="submit" class="waves-effect waves-light btn btn-small red">
+                        <button type="submit" class="waves-effect waves-light btn btn-small card-btn red">
                             Delete
                         </button>
                     </form>
