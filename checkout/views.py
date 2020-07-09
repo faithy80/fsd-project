@@ -77,7 +77,12 @@ def checkout(request):
                 order_item.save()
 
             # redirect to the success checkout view
-            return redirect(reverse('checkout_success'))
+            return redirect(
+                reverse(
+                    'checkout_success',
+                    order_number=order.order_number,
+                )
+            )
 
         else:
             # if the form was not valid
@@ -115,7 +120,7 @@ def checkout(request):
     return render(request, 'checkout.html', context)
 
 
-def checkout_success(request):
+def checkout_success(request, order_number):
     """
     A function to handle successful checkout
     """
@@ -124,6 +129,8 @@ def checkout_success(request):
     if 'cart' in request.session:
         del request.session['cart']
 
-    context = {}
+    context = {
+        'order_number': order_number,
+    }
 
     return render(request, 'checkout_success.html', context)
