@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<form id="payment-form">
+<form method="POST" action="{% url 'checkout' %}" id="payment-form">
     {% csrf_token %}
 
     <div class="row">
@@ -49,12 +49,12 @@
         Back to cart
         <i class="material-icons left">arrow_back</i>
     </a>
-</form>
 
-<a href="{% url 'index' %}" class="waves-effect waves-light btn btn-small custom-btn">
-    Back to home
-    <i class="material-icons left">arrow_back</i>
-</a>
+    <a href="{% url 'index' %}" class="waves-effect waves-light btn btn-small custom-btn">
+        Back to home
+        <i class="material-icons left">arrow_back</i>
+    </a>
+</form>
 
 {% endblock %}
 
