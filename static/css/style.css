@@ -9,8 +9,8 @@ body {
 }
 
 .custom-btn {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
     margin-right: 1rem;
 }
 
@@ -51,8 +51,18 @@ nav {
 }
 
 
-/* --------------------------------- upload */
+/* --------------------------------- shop and admin product card */
 
 .card-header {
     margin-bottom: 2rem;
+}
+
+
+/* --------------------------------- media queries */
+
+@media (max-width: 575px) {
+    .custom-btn {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 }
