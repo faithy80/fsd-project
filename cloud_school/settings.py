@@ -184,7 +184,7 @@ EMAIL_FORM = 'This is an automated email from fsd-project.herokuapp.com.\n'
 
 # Session Settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 600 # set to 10 mins
+SESSION_COOKIE_AGE = 3600 # set to 1 hour
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Stripe
