@@ -4,7 +4,7 @@ from .models import Profile, ContentUpload, Messages
 from .forms import ContentUploadForm, ChooseStudentForm, MessagesForm
 from shop.forms import ProductForm, UpdateProductForm
 from shop.models import Product
-from checkout.models import Order
+from checkout.models import Order, OrderItem
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from PIL import Image
@@ -304,6 +304,13 @@ def view_order(request, order_number):
     A function to list an order individually
     """
 
-    context = {}
+    # get the order and the order items
+    order = get_object_or_404(Order, order_number=order_number)
+    order_items = OrderItem.objects.filter(order_reference=order)
+
+    context = {
+        'order': order,
+        'order_items': order_items,
+    }
 
     return render(request, 'view_order.html', context)

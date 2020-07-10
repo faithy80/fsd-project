@@ -1,9 +1,59 @@
 {% extends 'base.html' %}
 
-{% block page_title %}List orders{% endblock %}
-{% block page_header %}List orders{% endblock %}
+{% block page_title %}View order{% endblock %}
+{% block page_header %}View order{% endblock %}
 
 {% block content %}
+
+<h5 class="header">Order info:</h5>
+
+<h6>Order number: {{order.order_number}}</h6>
+
+<h6>Order date: {{order.order_date}}</h6>
+
+<h6>Total price: {{order.order_total}} euro</h6>
+
+<h5 class="header">Buyer info:</h5>
+
+<h6>Name: {{order.full_name}}</h6>
+
+<h6>Email: {{order.email}}</h6>
+
+<h6>Phone number: {{order.phone_number}}</h6>
+
+<h6>Address 1: {{order.address1}}</h6>
+
+<h6>Address 2: {{order.address2}}</h6>
+
+<h6>Town or city: {{order.town_or_city}}</h6>
+
+<h6>Eircode: {{order.eircode}}</h6>
+
+<h6>County: {{order.county}}</h6>
+
+<h5 class="header">Ordered products:</h5>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Product price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in order_items %}     
+        
+        <tr>
+            <td>{{item.product.product_name}}</td>
+            <td>{{item.product.product_price}}</td>
+            <td>{{item.quantity}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
 
 <a href="{% url 'list_order' %}" class="waves-effect waves-light btn btn-small custom-btn">
     Back to the order list
