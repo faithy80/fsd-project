@@ -282,3 +282,13 @@ def edit_product(request, pk):
 
     # render the edit product page
     return render(request, 'edit_product.html', context)
+
+
+def list_order(request):
+    """
+    A function to list orders in the admin dashboard
+    """
+
+    context = {}
+
+    return render(request, 'list_order.html', context)

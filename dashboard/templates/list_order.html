@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_title %}List orders{% endblock %}
+{% block page_header %}List orders{% endblock %}
+
+{% block content %}
+
+{% if order_list %}
+
+{% else %}
+
+<p>No orders have been added yet.</p>
+
+{% endif %}
+
+<a href="{% url 'dashboard' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Back to dashboard
+    <i class="material-icons left">arrow_back</i>
+</a>
+
+{% endblock %}

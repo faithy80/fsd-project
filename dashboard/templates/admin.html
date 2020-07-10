@@ -5,19 +5,26 @@
 
 {% block content %}
 
-<a href="{% url 'admin:index' %}" class="waves-effect waves-light btn btn-small custom-btn">
+<a href="{% url 'admin:index' %}" class="waves-effect waves-light btn btn-small card-btn">
     Built-in admin site
     <i class="material-icons left">settings</i>
 </a>
 
 <h4>Products</h4>
 
-<a href="{% url 'add_product' %}" class="waves-effect waves-light btn btn-small custom-btn">
+<a href="{% url 'add_product' %}" class="waves-effect waves-light btn btn-small card-btn">
     Add a product
     <i class="material-icons left">add_box</i>
 </a>
 
-<a href="{% url 'list_product' %}" class="waves-effect waves-light btn btn-small custom-btn">
+<a href="{% url 'list_product' %}" class="waves-effect waves-light btn btn-small card-btn">
+    List products
+    <i class="material-icons left">list</i>
+</a>
+
+<h4>Orders</h4>
+
+<a href="{% url 'list_order' %}" class="waves-effect waves-light btn btn-small card-btn">
     List products
     <i class="material-icons left">list</i>
 </a>
