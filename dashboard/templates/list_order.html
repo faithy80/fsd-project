@@ -7,6 +7,32 @@
 
 {% if order_list %}
 
+<table class="responsive-table">
+    <thead>
+        <tr>
+            <th>Order number</th>
+
+            <th>Order date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in order_list %}
+        
+        <tr>
+            <td>
+                <a href="#">
+                    {{item.order_number}}
+                </a>
+            </td>
+
+            <td>{{item.order_date}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
 {% else %}
 
 <p>No orders have been added yet.</p>

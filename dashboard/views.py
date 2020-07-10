@@ -4,6 +4,7 @@ from .models import Profile, ContentUpload, Messages
 from .forms import ContentUploadForm, ChooseStudentForm, MessagesForm
 from shop.forms import ProductForm, UpdateProductForm
 from shop.models import Product
+from checkout.models import Order
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from PIL import Image
@@ -289,6 +290,10 @@ def list_order(request):
     A function to list orders in the admin dashboard
     """
 
-    context = {}
+    order_list = Order.objects.all().order_by('order_date')
+
+    context = {
+        'order_list': order_list,
+    }
 
     return render(request, 'list_order.html', context)
