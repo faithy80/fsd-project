@@ -77,12 +77,7 @@ def checkout(request):
                 order_item.save()
 
             # redirect to the success checkout view
-            return redirect(
-                reverse(
-                    'checkout_success',
-                    order_number=order.order_number,
-                )
-            )
+            return redirect(reverse('checkout_success', kwargs={'order_number': order.order_number}))
 
         else:
             # if the form was not valid
