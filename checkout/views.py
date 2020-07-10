@@ -71,7 +71,8 @@ def checkout(request):
                 product = Product.objects.get(id=item_id)
                 order_item = OrderItem(
                     order_reference=order,
-                    product=product,
+                    product_name=product.product_name,
+                    price=product.product_price, 
                     quantity=quantity,
                 )
                 order_item.save()

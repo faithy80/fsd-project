@@ -50,6 +50,7 @@ class Order(models.Model):
     )
     order_date = models.DateTimeField(
         auto_now_add=True,
+        editable=False,
     )
     order_total = models.DecimalField(
         max_digits=6,
@@ -73,17 +74,24 @@ class OrderItem(models.Model):
         null=False,
         blank=False,
         on_delete=models.CASCADE,
+        editable=False,
     )
-    product = models.ForeignKey(
-        Product,
-        null=False,
-        blank=False,
-        on_delete=models.CASCADE,
+    product_name = models.CharField(
+        'Product name',
+        max_length=50,
+        editable=False,
+    )
+    price = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        default=0,
+        editable=False,
     )
     quantity = models.IntegerField(
         null=False,
         blank=False,
         default=0,
+        editable=False,
     )
 
     def __str__(self):
@@ -91,5 +99,5 @@ class OrderItem(models.Model):
         Unicode representation of the order item model
         """
 
-        return self.order_reference.order_number + ' ' \
-            + self.product.product_name
+        return self.order_reference.order_number + ' - ' \
+            + self.product_name

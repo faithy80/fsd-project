@@ -7,8 +7,17 @@ from .models import Order, OrderItem
 class OrderAdmin(admin.ModelAdmin):
     readonly_fields = (
         'order_number',
+        'order_total',
         'order_date',
     )
 
+class OrderItemAdmin(admin.ModelAdmin):
+    readonly_fields = (
+        'order_reference',
+        'product_name',
+        'price',
+        'quantity',
+    )
+
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderItem)
+admin.site.register(OrderItem, OrderItemAdmin)
