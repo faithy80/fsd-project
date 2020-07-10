@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block page_title %}List orders{% endblock %}
+{% block page_header %}List orders{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'list_order' %}" class="waves-effect waves-light btn btn-small custom-btn">
+    Back to the order list
+    <i class="material-icons left">arrow_back</i>
+</a>
+
+{% endblock %}

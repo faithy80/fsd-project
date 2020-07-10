@@ -297,3 +297,13 @@ def list_order(request):
     }
 
     return render(request, 'list_order.html', context)
+
+
+def view_order(request, order_number):
+    """
+    A function to list an order individually
+    """
+
+    context = {}
+
+    return render(request, 'view_order.html', context)
