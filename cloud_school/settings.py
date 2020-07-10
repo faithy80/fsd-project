@@ -179,6 +179,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_SUBJECT = 'Test order confirmation email'
+EMAIL_FORM = 'This is an automated email from fsd-project.herokuapp.com.\n'
 
 # Session Settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

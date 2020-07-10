@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.core.mail import send_mail
 from .forms import OrderForm
-from .models import OrderItem
+from .models import Order, OrderItem
 from shop.models import Product
 from django.conf import settings
 from cart.contexts import cart_contents
@@ -77,6 +78,16 @@ def checkout(request):
                 )
                 order_item.save()
 
+            # send a confirmation email
+            send_mail (
+                settings.EMAIL_SUBJECT,
+                settings.EMAIL_FORM  + '\nYour order (' \
+                    + order.order_number + ') has been confirmed.\n\n',
+                settings.EMAIL_HOST_USER,
+                [order.email],
+                fail_silently=False,
+            )
+
             # redirect to the success checkout view
             return redirect(reverse('checkout_success', kwargs={'order_number': order.order_number}))
 
@@ -125,8 +136,12 @@ def checkout_success(request, order_number):
     if 'cart' in request.session:
         del request.session['cart']
 
+    # get the order from the order number
+    order = get_object_or_404(Order, order_number=order_number)
+
     context = {
         'order_number': order_number,
+        'email': order.email,
     }
 
     return render(request, 'checkout_success.html', context)
