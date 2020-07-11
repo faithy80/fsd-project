@@ -45,9 +45,8 @@ def update_cart(request, item_id):
         # get data from the session cart
         cart = request.session.get('cart', {})
 
-        if quantity == 0:
-            cart.pop(str(item_id))
-            messages.success(request, "The product has been removed from the cart.")
+        if quantity <= 0:
+            messages.success(request, "Invalid quantity entered.")
 
         elif quantity <= 10:
             cart[item_id] = quantity
@@ -55,9 +54,22 @@ def update_cart(request, item_id):
 
         else:
             messages.error(request, "The limit is 10 for each product to buy.")
-        
+
         # save data in the session cart
             request.session['cart'] = cart
 
+    # redirect to the previous page
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+def remove_cart_item(request, item_id):
+    if request.method == 'POST':
+        # get data from the session cart
+        cart = request.session.get('cart', {})
+
+        # remove item from cart
+        cart.pop(str(item_id))
+        messages.success(request, "The product has been removed from the cart.")
+    
     # redirect to the previous page
     return redirect(request.META.get('HTTP_REFERER'))

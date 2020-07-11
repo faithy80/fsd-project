@@ -13,9 +13,14 @@
     <thead>
         <tr>
             <th>Product name</th>
+
             <th>Unit Price</th>
+
             <th>Quantity</th>
-            <th>Update/Remove</th>
+
+            <th>Update</th>
+
+            <th>Remove</th>
         </tr>
     </thead>
 
@@ -24,17 +29,30 @@
 
         <tr>
             <td>{{item.product.product_name}}</td>
+
             <td>{{item.product.product_price}}</td>
+
             <td>{{item.quantity}}</td>
+
             <td>
                 <form method="POST" action="{% url 'update_cart' item.product.pk %}">
                     {% csrf_token %}
 
                     <input name="quantity" id="quantity" type="number" class="input-field update-quantity-field"
-                        placeholder="Quantity" min="0" required>
+                        placeholder="Quantity" min="1" required>
 
                     <button class="waves-effect waves-light btn btn-small quantity-btn">
                         Update
+                    </button>
+                </form>
+            </td>
+
+            <td>
+                <form method="POST" action="{% url 'remove_cart_item' item.product.pk %}">
+                    {% csrf_token %}
+
+                    <button class="waves-effect waves-light btn btn-small cart-btn red">
+                        Delete
                     </button>
                 </form>
             </td>
