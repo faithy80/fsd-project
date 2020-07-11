@@ -30,7 +30,7 @@
     margin-left: 3rem;
 }
 
-.card-btn{
+.card-btn {
     margin-right: 2rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -41,6 +41,16 @@
 
 .custom-container {
     min-height: 100vh;
+}
+
+.background-picture {
+    background: url(/static/images/school.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 
@@ -67,6 +77,21 @@ footer {
 
 .flash-message {
     margin-bottom: 2rem;
+}
+
+/* --------------------------------- index.html */
+
+.callout {
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.callout h4 {
+    margin-bottom: 2rem;
+    font-weight: bold;
 }
 
 
