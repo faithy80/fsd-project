@@ -1,13 +1,24 @@
 /* --------------------------------- general */
 
-body {
-    background-color: #f0f0f0;
-}
-
 .header {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
+
+.quantity-field {
+    width: 40% !important;
+}
+
+.update-quantity-field {
+    width: 5rem !important;
+}
+
+.upload-msg {
+    margin-top: 2rem;
+}
+
+
+/* --------------------------------- buttons */
 
 .custom-btn {
     margin-top: 2rem;
@@ -25,6 +36,46 @@ body {
     margin-bottom: 1rem;
 }
 
+
+/* --------------------------------- containers */
+
+.custom-container {
+    min-height: 100vh;
+}
+
+
+/* --------------------------------- base.html */
+
+body {
+    background-color: #f0f0f0;
+}
+
+nav {
+    background-color: #2e86ab;
+}
+
+footer {
+    background-color: #525252;
+    color: #fff;
+    height: 10rem;
+}
+
+.custom-footer {
+    font-size: large;
+    margin: 0 auto;
+}
+
+.flash-message {
+    margin-bottom: 2rem;
+}
+
+
+/* --------------------------------- cards */
+
+.card-header {
+    margin-bottom: 2rem;
+}
+
 .card-custom {
     position: relative;
     height: 30rem;
@@ -33,39 +84,6 @@ body {
 .card-bottom {
     position: absolute;
     bottom: 1rem;
-}
-
-.quantity-field {
-    width: 40% !important;
-}
-
-.update-quantity-field {
-    width: 5rem !important;
-}
-
-
-/* --------------------------------- base.html */
-
-nav {
-    background-color: #2e86ab;
-}
-
-.flash-message {
-    margin-bottom: 2rem;
-}
-
-
-/* --------------------------------- upload */
-
-.upload-msg {
-    margin-top: 2rem;
-}
-
-
-/* --------------------------------- shop and admin product card */
-
-.card-header {
-    margin-bottom: 2rem;
 }
 
 
