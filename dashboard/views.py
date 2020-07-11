@@ -244,8 +244,8 @@ def delete_product(request, pk):
     # send feedback
     messages.success(request, "The product was deleted.")
 
-    # redirect to the previous page
-    return redirect(request.META.get('HTTP_REFERER'))
+    # redirect to the list product view
+    return (redirect(reverse('list_product'))) 
 
 
 @login_required

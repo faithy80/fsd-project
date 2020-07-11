@@ -15,16 +15,25 @@
             Uploaded image cannot be edited.
         </p>
     </div>
-    
-    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
-        Edit product
-        <i class="material-icons left">edit</i>
-    </button>
-    
-    <a href="{% url 'list_product' %}" class="waves-effect waves-light btn btn-small custom-btn">
+
+    <a href="{% url 'list_product' %}" class="waves-effect waves-light btn btn-small card-btn">
         Go back
         <i class="material-icons left">arrow_back</i>
     </a>
+    
+    <button type="submit" class="waves-effect waves-light btn btn-small card-btn">
+        Edit product
+        <i class="material-icons left">edit</i>
+    </button>
+</form>
+
+<form method="POST" action="{% url 'delete_product' item_id %}">
+    {% csrf_token %}
+
+    <button type="submit" class="waves-effect waves-light btn btn-small card-btn red">
+        Delete
+        <i class="material-icons left">delete</i>
+    </button>
 </form>
 
 {% endblock %}
