@@ -1,17 +1,15 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from django.test import Client
 
 
 class TestHomeViews(TestCase):
 
-    def test_home(self):
-        # render homepage if user is not logged in
+    def test_render_home_page_if_user_is_not_logged_in(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-
-        # redirect to dashboard when user is logged in as admin
+    
+    def test_redirect_to_dashboard_if_admin_is_logged_in(self):
         user = User.objects.create_superuser(username='testuser')
         user.set_password('12345')
         user.save()
