@@ -40,15 +40,9 @@ class RegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs.update(
-            {'required': 'required'}
-        )
-        self.fields['last_name'].widget.attrs.update(
-            {'required': 'required'}
-        )
-        self.fields['email'].widget.attrs.update(
-            {'required': 'required'}
-        )
+        self.fields['first_name'].required=True
+        self.fields['last_name'].required=True
+        self.fields['email'].required=True
     
     def clean_email(self, *args, **kwargs):
         email = self.cleaned_data.get('email')
