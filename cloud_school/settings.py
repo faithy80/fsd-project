@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import dj_database_url
+import sys
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,14 +26,6 @@ if os.path.exists('env.py'):
 
     # Debug mode is on
     DEBUG = True
-
-    # Set local database
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
 
 else:
     # Debug stays on until the end of the development
@@ -48,6 +41,16 @@ else:
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
+
+
+# if test is running
+# use local sqlite db
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3'
+        }
+    } 
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
