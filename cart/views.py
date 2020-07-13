@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 
 
@@ -20,8 +20,11 @@ def add_to_cart(request, item_id):
             old_value = cart.get(str(item_id))
             quantity += old_value
 
-        # limit quantity to 10
-        if quantity > 10:
+        # check quantity
+        if quantity <= 0:
+            messages.success(request, "Invalid quantity entered.")
+
+        elif quantity > 10:
             messages.error(request, "The limit is 10 for each product to buy.")
         
         else:
@@ -33,8 +36,8 @@ def add_to_cart(request, item_id):
             # send feedback
             messages.success(request, "The product has been added to the cart.")
     
-    # redirect to the previous page
-    return redirect(request.META.get('HTTP_REFERER'))
+    # redirect to the shop view
+    return redirect(reverse('shop'))
 
 
 def update_cart(request, item_id):
@@ -45,6 +48,7 @@ def update_cart(request, item_id):
         # get data from the session cart
         cart = request.session.get('cart', {})
 
+        # check quantity
         if quantity <= 0:
             messages.success(request, "Invalid quantity entered.")
 
@@ -58,8 +62,8 @@ def update_cart(request, item_id):
         # save data in the session cart
             request.session['cart'] = cart
 
-    # redirect to the previous page
-    return redirect(request.META.get('HTTP_REFERER'))
+    # redirect to the cart view
+    return redirect(reverse('view_cart'))
 
 
 def remove_cart_item(request, item_id):
@@ -71,5 +75,5 @@ def remove_cart_item(request, item_id):
         cart.pop(str(item_id))
         messages.success(request, "The product has been removed from the cart.")
     
-    # redirect to the previous page
-    return redirect(request.META.get('HTTP_REFERER'))
+    # redirect to the cart view
+    return redirect(reverse('view_cart'))
