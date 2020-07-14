@@ -38,10 +38,12 @@
                     <i class="material-icons">menu</i>
                 </a>
 
+                {% with request.resolver_match.url_name as url_name %}
+
                 <ul class="right hide-on-med-and-down">
                     {% if user.is_authenticated %}
 
-                    <li>
+                    <li class="{% if url_name == 'change_password' %}active{% endif %}">
                         <a href="{% url 'change_password' %}">Change Password</a>
                     </li>
 
@@ -51,19 +53,19 @@
 
                     {% else %}
 
-                    <li>
+                    <li class="{% if url_name == 'shop' %}active{% endif %}">
                         <a href="{% url 'shop' %}">Shop</a>
                     </li>
 
-                    <li>
+                    <li class="{% if url_name == 'login' %}active{% endif %}">
                         <a href="{% url 'login' %}">Login</a>
                     </li>
 
-                    <li>
+                    <li class="{% if url_name == 'register' %}active{% endif %}">
                         <a href="{% url 'register' %}">Register</a>
                     </li>
 
-                    <li>
+                    <li class="{% if url_name == 'view_cart' %}active{% endif %}">
                         <a href="{% url 'view_cart' %}">
                             {% if product_count > 0 %}
                             <span class="badge red white-text">{{product_count}}</span>
@@ -80,7 +82,7 @@
                 <ul class="sidenav" id="mobile">
                     {% if user.is_authenticated %}
 
-                    <li>
+                    <li class="{% if url_name == 'change_password' %}active{% endif %}">
                         <a href="{% url 'change_password' %}">Change Password</a>
                     </li>
 
@@ -90,19 +92,19 @@
 
                     {% else %}
 
-                    <li>
+                    <li class="{% if url_name == 'shop' %}active{% endif %}">
                         <a href="{% url 'shop' %}">Shop</a>
                     </li>
 
-                    <li>
+                    <li class="{% if url_name == 'login' %}active{% endif %}">
                         <a href="{% url 'login' %}">Login</a>
                     </li>
 
-                    <li>
+                    <li class="{% if url_name == 'register' %}active{% endif %}">
                         <a href="{% url 'register' %}">Register</a>
                     </li>
 
-                    <li>
+                    <li class="{% if url_name == 'view_cart' %}active{% endif %}">
                         <a href="{% url 'view_cart' %}">
                             <i class="material-icons">shopping_cart</i>
                         </a>
@@ -111,6 +113,9 @@
                     {% endif %}
 
                 </ul>
+
+                {% endwith %}
+
             </div>
         </nav>
         <!-- ./Navbar -->
