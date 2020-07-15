@@ -3,11 +3,21 @@ from django.contrib import messages
 
 
 def view_cart(request):
+    """
+    A function to view cart
+    """
+
     context = {}
+
+    # renders the cart view
     return render(request, 'view_cart.html', context)
 
 
 def add_to_cart(request, item_id):
+    """
+    A function to add an item to the cart
+    """
+
     if request.method == 'POST':
         # get quantity from the form
         quantity = int(request.POST.get('quantity'))
@@ -26,7 +36,7 @@ def add_to_cart(request, item_id):
 
         elif quantity > 10:
             messages.error(request, "The limit is 10 for each product to buy.")
-        
+
         else:
             cart[item_id] = quantity
 
@@ -34,13 +44,20 @@ def add_to_cart(request, item_id):
             request.session['cart'] = cart
 
             # send feedback
-            messages.success(request, "The product has been added to the cart.")
-    
+            messages.success(
+                request,
+                "The product has been added to the cart.",
+            )
+
     # redirect to the shop view
     return redirect(reverse('shop'))
 
 
 def update_cart(request, item_id):
+    """
+    A function to update the cart
+    """
+
     if request.method == 'POST':
         # get quantity from the form
         quantity = int(request.POST.get('quantity'))
@@ -54,7 +71,10 @@ def update_cart(request, item_id):
 
         elif quantity <= 10:
             cart[item_id] = quantity
-            messages.success(request, "The product has been updated in the cart.")
+            messages.success(
+                request,
+                "The product has been updated in the cart.",
+            )
 
         else:
             messages.error(request, "The limit is 10 for each product to buy.")
@@ -67,13 +87,20 @@ def update_cart(request, item_id):
 
 
 def remove_cart_item(request, item_id):
+    """
+    A function to remove an item from the cart
+    """
+
     if request.method == 'POST':
         # get data from the session cart
         cart = request.session.get('cart', {})
 
         # remove item from cart
         cart.pop(str(item_id))
-        messages.success(request, "The product has been removed from the cart.")
-    
+        messages.success(
+            request,
+            "The product has been removed from the cart.",
+        )
+
     # redirect to the cart view
     return redirect(reverse('view_cart'))

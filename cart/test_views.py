@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.shortcuts import reverse
 from django.contrib.messages import get_messages
 
-    
+
 class TestCartViews(TestCase):
 
     def setUp(self):
@@ -47,7 +47,10 @@ class TestCartViews(TestCase):
         )
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'The limit is 10 for each product to buy.')
+        self.assertEqual(
+            str(messages[0]),
+            'The limit is 10 for each product to buy.',
+        )
 
     def test_add_to_cart_post_response_fail2(self):
         response = self.client.post(
@@ -69,7 +72,7 @@ class TestCartViews(TestCase):
             ),
         )
         self.assertRedirects(response, reverse('view_cart'))
-    
+
     def test_update_cart_post_response(self):
         session = self.client.session
         session['cart'] = {'1': 1}
@@ -95,7 +98,10 @@ class TestCartViews(TestCase):
         )
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'The limit is 10 for each product to buy.')
+        self.assertEqual(
+            str(messages[0]),
+            'The limit is 10 for each product to buy.',
+        )
 
     def test_update_cart_post_response_fail2(self):
         response = self.client.post(

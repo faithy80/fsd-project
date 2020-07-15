@@ -9,6 +9,7 @@ def cart_contents(request):
     product_count = 0
     cart = request.session.get('cart', {})
 
+    # prepare data for the context
     for item_id, quantity in cart.items():
         product = get_object_or_404(Product, pk=item_id)
         price_total += quantity * product.product_price
@@ -17,7 +18,7 @@ def cart_contents(request):
             {
                 'item_id': item_id,
                 'quantity': quantity,
-                'product' : product,
+                'product': product,
             }
         )
 
@@ -26,4 +27,6 @@ def cart_contents(request):
         'product_count': product_count,
         'price_total': price_total,
     }
+
+    # make data available for each view
     return context
