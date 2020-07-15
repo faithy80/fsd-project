@@ -15,6 +15,8 @@ def logout(request):
 
     auth.logout(request)
     messages.success(request, "You logged out successfully")
+
+    # redirects to the landing page
     return redirect(reverse('index'))
 
 
@@ -23,6 +25,7 @@ def login(request):
     Returns the login page
     """
 
+    # checks if user authenticated already
     if request.user.is_authenticated:
         return redirect(reverse('index'))
 
@@ -35,10 +38,12 @@ def login(request):
                 password=request.POST['password'],
             )
 
+            # if user is valid
             if user:
                 auth.login(user=user, request=request)
                 return redirect(reverse('dashboard'))
 
+            # if user is not valid
             else:
                 messages.error(
                     request,
@@ -49,6 +54,8 @@ def login(request):
         login_form = LoginForm()
 
     context = {'login_form': login_form}
+
+    # renders the login view
     return render(request, 'login.html', context)
 
 
@@ -57,6 +64,7 @@ def register(request):
     Renders the registration page
     """
 
+    # checks if user authenticated already
     if request.user.is_authenticated:
         return redirect(reverse('index'))
 
@@ -92,6 +100,8 @@ def register(request):
         'registration_form': registration_form,
         'profile_form': profile_form,
     }
+
+    # renders the registration page
     return render(request, 'register.html', context)
 
 
@@ -117,4 +127,6 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
 
     context = {'form': form}
+
+    # renders the change password page
     return render(request, 'change_password.html', context)
