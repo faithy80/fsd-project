@@ -36,14 +36,21 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password1',
+            'password2',
+        ]
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].required=True
-        self.fields['last_name'].required=True
-        self.fields['email'].required=True
-    
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['email'].required = True
+
     def clean_email(self, *args, **kwargs):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')

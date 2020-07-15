@@ -5,10 +5,11 @@
 {% block page_header %}Login page{% endblock %}
 
 {% block content %}
+
 <form method="POST">
     {% csrf_token %}
     {{ login_form|materializecss }}
-    
+
     <p>
         <a href="{% url 'password_reset' %}">Forgot my password</a>
     </p>
@@ -23,4 +24,5 @@
         <i class="material-icons left">arrow_back</i>
     </a>
 </form>
+
 {% endblock %}

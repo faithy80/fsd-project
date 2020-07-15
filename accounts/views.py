@@ -40,7 +40,10 @@ def login(request):
                 return redirect(reverse('dashboard'))
 
             else:
-                messages.error(request, "Your username or password is incorrect")
+                messages.error(
+                    request,
+                    "Your username or password is incorrect",
+                )
 
     else:
         login_form = LoginForm()
@@ -72,29 +75,30 @@ def register(request):
                 username=request.POST['username'],
                 password=request.POST['password1']
             )
-            
+
             if user:
                 messages.success(request, "You have successfully registered")
-            
+
             else:
                 messages.error(request, "Unable to register your account")
-            
+
             return redirect(reverse('index'))
-    
+
     else:
         registration_form = RegistrationForm()
         profile_form = ProfileForm()
-    
+
     context = {
         'registration_form': registration_form,
         'profile_form': profile_form,
     }
     return render(request, 'register.html', context)
 
+
 @login_required
 def change_password(request):
     """
-    A view to change the user's password 
+    A view to change the user's password
     """
 
     if request.method == 'POST':
@@ -102,7 +106,10 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was changed successfully!')
+            messages.success(
+                request,
+                'Your password was changed successfully!',
+            )
             return redirect(reverse('dashboard'))
         else:
             messages.error(request, 'Please correct the error in the form!')

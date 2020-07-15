@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class TestAccountsViews(TestCase):
-    
+
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_superuser(
@@ -39,7 +39,7 @@ class TestAccountsViews(TestCase):
             str(messages[0]),
             'Your username or password is incorrect'
         )
-        
+
     def test_login_success(self):
         response = self.client.post(
             reverse('login'),
@@ -59,11 +59,11 @@ class TestAccountsViews(TestCase):
         response = self.client.post(
             reverse('register'),
             {
-                'username' : 'test2',
-                'first_name' : 'test2',
-                'last_name' : 'test2',
-                'email' : 'test2@test.com',
-                'password1' : 'login54321',
+                'username': 'test2',
+                'first_name': 'test2',
+                'last_name': 'test2',
+                'email': 'test2@test.com',
+                'password1': 'login54321',
                 'password2': 'login54321',
                 'user': self.user,
                 'user_type': 'S',
@@ -100,7 +100,7 @@ class TestAccountsViews(TestCase):
             }
         )
         self.assertRedirects(response, reverse('dashboard'))
-    
+
     def test_change_password_page_fail(self):
         self.client.login(username='testuser', password='12345')
 

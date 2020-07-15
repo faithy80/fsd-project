@@ -15,8 +15,14 @@ class TestAccountsForms(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('username', form.errors.keys())
         self.assertIn('password', form.errors.keys())
-        self.assertEquals(form.errors['username'][0], 'This field is required.')
-        self.assertEquals(form.errors['password'][0], 'This field is required.')
+        self.assertEquals(
+            form.errors['username'][0],
+            'This field is required.',
+        )
+        self.assertEquals(
+            form.errors['password'][0],
+            'This field is required.',
+        )
 
     def test_registration_form_with_empty_fields(self):
         form = RegistrationForm(
@@ -36,15 +42,36 @@ class TestAccountsForms(TestCase):
         self.assertIn('email', form.errors.keys())
         self.assertIn('password1', form.errors.keys())
         self.assertIn('password2', form.errors.keys())
-        self.assertEquals(form.errors['username'][0], 'This field is required.')
-        self.assertEquals(form.errors['first_name'][0], 'This field is required.')
-        self.assertEquals(form.errors['last_name'][0], 'This field is required.')
-        self.assertEquals(form.errors['email'][0], 'This field is required.')
-        self.assertEquals(form.errors['password1'][0], 'This field is required.')
-        self.assertEquals(form.errors['password2'][0], 'This field is required.')
+        self.assertEquals(
+            form.errors['username'][0],
+            'This field is required.',
+        )
+        self.assertEquals(
+            form.errors['first_name'][0],
+            'This field is required.',
+        )
+        self.assertEquals(
+            form.errors['last_name'][0],
+            'This field is required.',
+        )
+        self.assertEquals(
+            form.errors['email'][0],
+            'This field is required.',
+        )
+        self.assertEquals(
+            form.errors['password1'][0],
+            'This field is required.',
+        )
+        self.assertEquals(
+            form.errors['password2'][0],
+            'This field is required.',
+        )
 
     def test_unique_email_fails(self):
-        user = User.objects.create_superuser(username='testuser', email='test@test.com')
+        user = User.objects.create_superuser(
+            username='testuser',
+            email='test@test.com',
+        )
         user.set_password('12345')
         user.save()
 
@@ -60,8 +87,11 @@ class TestAccountsForms(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertIn('email', form.errors.keys())
-        self.assertEquals(form.errors['email'][0], 'Email address must be unique')
-    
+        self.assertEquals(
+            form.errors['email'][0],
+            'Email address must be unique',
+        )
+
     def test_unique_email_passes(self):
         form = RegistrationForm(
             {
@@ -88,4 +118,7 @@ class TestAccountsForms(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertIn('password2', form.errors.keys())
-        self.assertEquals(form.errors['password2'][0], 'Passwords do not match')
+        self.assertEquals(
+            form.errors['password2'][0],
+            'Passwords do not match',
+        )

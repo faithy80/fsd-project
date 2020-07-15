@@ -5,21 +5,23 @@
 {% block page_header %}Registration page{% endblock %}
 
 {% block content %}
+
 <p>If you already have an account, you can <a href="{% url 'login' %}">sign in</a>.</p>
 
 <form method="POST">
     {% csrf_token %}
     {{ registration_form|materializecss }}
     {{ profile_form|materializecss }}
-    
+
     <button class="waves-effect waves-light btn btn-small custom-btn" type="submit">
         Register
         <i class="material-icons left">thumb_up</i>
     </button>
-    
+
     <a href="{% url 'index' %}" class="waves-effect waves-light btn btn-small custom-btn">
         Back to home
         <i class="material-icons left">arrow_back</i>
     </a>
 </form>
+
 {% endblock %}
