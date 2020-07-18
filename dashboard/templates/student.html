@@ -6,20 +6,10 @@
 
 {% block content %}
 
-<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn btn-small custom-btn">
+<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn btn-small card-btn">
     Upload content
     <i class="material-icons left">cloud_upload</i>
 </a>
-
-<form method="POST" action="{% url 'send_message' profile.pk teacher.pk %}">
-    {% csrf_token %}
-    {{ message_form|materializecss }}    
-
-    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
-        Send message
-        <i class="material-icons left">message</i>
-    </button>
-</form>
 
 <ul class="collapsible" data-collapsible="accordion">
     <li class="active">
@@ -138,5 +128,15 @@
         </div>
     </li>
 </ul>
+
+<form method="POST" action="{% url 'send_message' profile.pk teacher.pk %}">
+    {% csrf_token %}
+    {{ message_form|materializecss }}    
+
+    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
+        Send message
+        <i class="material-icons left">message</i>
+    </button>
+</form>
 
 {% endblock %}

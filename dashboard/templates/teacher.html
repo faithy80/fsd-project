@@ -6,19 +6,19 @@
 
 {% block content %}
 
-<a href="{% url 'upload_content' %}" class="waves-effect waves-light btn btn-small custom-btn">
-    Upload content
-    <i class="material-icons left">cloud_upload</i>
-</a>
-
 <form method="POST">
     {% csrf_token %}
     {{ select_form|materializecss }}
-    
-    <button type="submit" class="waves-effect waves-light btn btn-small custom-btn">
+        
+    <button type="submit" class="waves-effect waves-light btn btn-small card-btn">
         Organize a student account
         <i class="material-icons left">school</i>
     </button>
+
+    <a href="{% url 'upload_content' %}" class="waves-effect waves-light btn btn-small card-btn">
+        Upload content
+        <i class="material-icons left">cloud_upload</i>
+    </a>
 </form>
 
 <ul class="collapsible" data-collapsible="accordion">
