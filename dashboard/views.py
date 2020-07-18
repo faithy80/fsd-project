@@ -245,7 +245,7 @@ def delete_product(request, pk):
     messages.success(request, "The product was deleted.")
 
     # redirect to the list product view
-    return (redirect(reverse('list_product'))) 
+    return redirect(reverse('list_product')) 
 
 
 @login_required
@@ -263,11 +263,15 @@ def edit_product(request, pk):
                 product_price=request.POST['product_price'],
             )
 
-            # send feedback
+            # send feedback on success
             messages.success(request, 'The product has been updated.')
 
             # redirect to the list products view
             return redirect(reverse('list_product'))
+        
+        else:
+            # send feedback on error
+            messages.error(request, 'The form was not valid.')
 
     # get the product from the database
     product = get_object_or_404(Product, pk=pk)
@@ -285,6 +289,7 @@ def edit_product(request, pk):
     return render(request, 'edit_product.html', context)
 
 
+@login_required
 def list_order(request):
     """
     A function to list orders in the admin dashboard
@@ -299,6 +304,7 @@ def list_order(request):
     return render(request, 'list_order.html', context)
 
 
+@login_required
 def view_order(request, order_number):
     """
     A function to list an order individually
