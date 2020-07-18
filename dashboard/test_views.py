@@ -16,7 +16,7 @@ class TestDashboardViews(TestCase):
         admin = User.objects.create_superuser(username='admin')
         admin.set_password('12345')
         admin.save()
-        
+
         teacher = User.objects.create_user(username='teacher')
         teacher.set_password('12345')
         teacher.save()
@@ -60,14 +60,14 @@ class TestDashboardViews(TestCase):
         response = self.client.get(reverse('dashboard'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'admin.html')
-    
+
     def test_dashboard_with_teacher_acc(self):
         self.client.login(username='teacher', password='12345')
 
         response = self.client.get(reverse('dashboard'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'teacher.html')
-    
+
     def test_dashboard_with_student_acc(self):
         self.client.login(username='student', password='12345')
 
@@ -98,7 +98,7 @@ class TestDashboardViews(TestCase):
 
     def test_edit_product_get_response_with_admin_acc(self):
         self.client.login(username='admin', password='12345')
-        
+
         simple_file = SimpleUploadedFile(
             name='test_image.jpg',
             content=b'testimagefile',
@@ -154,14 +154,14 @@ class TestDashboardViews(TestCase):
 
     def test_list_order_get_response_with_admin_acc(self):
         self.client.login(username='admin', password='12345')
-        
+
         response = self.client.get(reverse('list_order'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'list_order.html')
 
     def test_view_order_get_response_with_admin_acc(self):
         self.client.login(username='admin', password='12345')
-        
+
         response = self.client.get(
             reverse(
                 'view_order',

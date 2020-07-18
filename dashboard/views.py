@@ -31,7 +31,7 @@ def dashboard(request):
         # get the user's uploaded content
         uploaded_content = ContentUpload.objects.filter(user=request.user)
 
-        # gather the context to render the template 
+        # gather the context to render the template
         context = {
             'profile': profile,
             'uploaded_content': uploaded_content,
@@ -41,13 +41,25 @@ def dashboard(request):
         if profile.user_type == 'T':
             if request.method == 'POST' and 'student_choices' in request.POST:
                 # prepare student id
-                student_id = get_object_or_404(Profile, user=request.POST['student_choices']).user.id
-                
+                student_id = get_object_or_404(
+                    Profile,
+                    user=request.POST['student_choices'],
+                ).user.id
+
                 # redirects to the organize a student account dashboard
-                return redirect(reverse('organize_a_student', args=(student_id,)))
-            
+                return redirect(
+                    reverse(
+                        'organize_a_student',
+                        args=(student_id,),
+                    ),
+                )
+
             # gather information for the student selector
-            student_choices = Profile.objects.filter(user_type='S').filter(classname=profile.classname)
+            student_choices = Profile.objects.filter(
+                user_type='S',
+            ).filter(
+                classname=profile.classname,
+            )
             select_form = ChooseStudentForm(student_choices=student_choices)
 
             # append context
@@ -62,13 +74,18 @@ def dashboard(request):
             message_form = MessagesForm()
 
             # get the teacher's profile and uploaded content
-            teacher = get_object_or_404(Profile, user_type='T', classname=profile.classname)
-            teacher_content = ContentUpload.objects.filter(user=teacher.user.id)
+            teacher = get_object_or_404(
+                Profile,
+                user_type='T',
+                classname=profile.classname,
+            )
+            teacher_content = ContentUpload.objects.filter(
+                user=teacher.user.id,
+            )
 
             # gather the chat
             chat = Messages.objects.filter(
-                (Q(from_user=teacher.user.id) & Q(to_user=profile.user.id))
-                |
+                (Q(from_user=teacher.user.id) & Q(to_user=profile.user.id)) |
                 (Q(from_user=profile.user.id) & Q(to_user=teacher.user.id))
             ).order_by('message_date')
 
@@ -78,8 +95,9 @@ def dashboard(request):
             context['chat'] = chat
             context['message_form'] = message_form
 
-            # renders the student dashboard 
+            # renders the student dashboard
             return render(request, 'student.html', context)
+
 
 @login_required
 def organize_a_student(request, student_id):
@@ -88,14 +106,13 @@ def organize_a_student(request, student_id):
 
     # get the student's profile
     student_profile = get_object_or_404(Profile, user_id=student_id)
-    
-    # gather the student's uploaded contents 
+
+    # gather the student's uploaded contents
     student_content = ContentUpload.objects.filter(user_id=student_id)
 
     # gather the chat
     chat = Messages.objects.filter(
-        (Q(from_user=student_profile.user.id) & Q(to_user=profile.user.id))
-        |
+        (Q(from_user=student_profile.user.id) & Q(to_user=profile.user.id)) |
         (Q(from_user=profile.user.id) & Q(to_user=student_profile.user.id))
     ).order_by('message_date')
 
@@ -110,7 +127,7 @@ def organize_a_student(request, student_id):
         'student_content': student_content,
         'chat': chat,
     }
-        
+
     # renders organize the student account dashboard
     return render(request, 'organize_student.html', context)
 
@@ -131,7 +148,7 @@ def upload_content(request):
 
             messages.success(request, "Your content has been added.")
 
-            return redirect(reverse('dashboard'))   
+            return redirect(reverse('dashboard'))
 
     form = ContentUploadForm()
 
@@ -171,7 +188,7 @@ def send_message(request, from_user_id, to_user_id):
 
             # send a feedback
             messages.success(request, "Your message was sent.")
-        
+
         else:
             # also send feedback on error
             messages.error(request, "Your message was not sent.")
@@ -201,13 +218,13 @@ def add_product(request):
             # store the original image name
             # and remove the original image
             temp_name = product.product_image.name
-            product.product_image.delete(save=False)  
+            product.product_image.delete(save=False)
 
             # replace original image to the resized one
             product.product_image.save(
-            temp_name,
-            content=ContentFile(new_image_io.getvalue()),
-            save=False,
+                temp_name,
+                content=ContentFile(new_image_io.getvalue()),
+                save=False,
             )
 
             # save product to database
@@ -217,7 +234,7 @@ def add_product(request):
 
             # redirect to the dashboard
             return redirect(reverse('dashboard'))
-    
+
     product_form = ProductForm()
     context = {
         'product_form': product_form,
@@ -245,7 +262,7 @@ def delete_product(request, pk):
     messages.success(request, "The product was deleted.")
 
     # redirect to the list product view
-    return redirect(reverse('list_product')) 
+    return redirect(reverse('list_product'))
 
 
 @login_required
@@ -268,7 +285,7 @@ def edit_product(request, pk):
 
             # redirect to the list products view
             return redirect(reverse('list_product'))
-        
+
         else:
             # send feedback on error
             messages.error(request, 'The form was not valid.')
