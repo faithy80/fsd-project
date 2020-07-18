@@ -16,7 +16,7 @@ class ProductForm(forms.ModelForm):
             'product_price',
             'product_image'
         ]
-    
+
     def __init__(self, *args, **kwargs):
         """
         Set autofocus attribute to the product_name field
@@ -32,8 +32,8 @@ class ProductForm(forms.ModelForm):
         Checks if the file to upload is supported and
         its size does not exceed 10MB
         """
-    
-        valid_extensions = ['.jpg', '.bmp', '.jpeg', '.gif', '.png',]
+
+        valid_extensions = ['.jpg', '.bmp', '.jpeg', '.gif', '.png', ]
         image = self.cleaned_data.get('product_image')
         filesize = image.size
         ext = os.path.splitext(image.name)[1]
@@ -42,7 +42,9 @@ class ProductForm(forms.ModelForm):
             raise ValidationError('Unsupported file.')
 
         if filesize > 10485760:
-            raise ValidationError('The maximum file size that can be uploaded is 10MB.')
+            raise ValidationError(
+                'The maximum file size that can be uploaded is 10MB.',
+            )
 
         return image
 
@@ -59,7 +61,7 @@ class UpdateProductForm(forms.ModelForm):
             'product_description',
             'product_price',
         ]
-    
+
     def __init__(self, *args, **kwargs):
         """
         Set autofocus attribute to the product_name field

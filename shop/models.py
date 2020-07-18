@@ -33,7 +33,7 @@ class Product(models.Model):
         """
         Unicode representation of the product
         """
-        
+
         return self.product_name
 
     def delete(self, *args, **kwargs):
