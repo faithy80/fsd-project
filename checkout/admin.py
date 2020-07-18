@@ -11,6 +11,7 @@ class OrderAdmin(admin.ModelAdmin):
         'order_date',
     )
 
+
 class OrderItemAdmin(admin.ModelAdmin):
     readonly_fields = (
         'order_reference',

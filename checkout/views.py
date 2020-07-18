@@ -73,23 +73,29 @@ def checkout(request):
                 order_item = OrderItem(
                     order_reference=order,
                     product_name=product.product_name,
-                    price=product.product_price, 
+                    price=product.product_price,
                     quantity=quantity,
                 )
                 order_item.save()
 
             # send a confirmation email
-            send_mail (
+            send_mail(
                 settings.EMAIL_SUBJECT,
-                settings.EMAIL_FORM  + '\nYour order (' \
-                    + order.order_number + ') has been confirmed.\n\n',
+                settings.EMAIL_FORM +
+                '\nYour order ({}) has been confirmed.' +
+                '\n\n'.format(order.order_number),
                 settings.EMAIL_HOST_USER,
                 [order.email],
                 fail_silently=False,
             )
 
             # redirect to the success checkout view
-            return redirect(reverse('checkout_success', kwargs={'order_number': order.order_number}))
+            return redirect(
+                reverse(
+                    'checkout_success',
+                    kwargs={'order_number': order.order_number},
+                ),
+            )
 
         else:
             # if the form was not valid
