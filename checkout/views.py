@@ -82,8 +82,8 @@ def checkout(request):
             send_mail(
                 settings.EMAIL_SUBJECT,
                 settings.EMAIL_FORM +
-                '\nYour order ({}) has been confirmed.' +
-                '\n\n'.format(order.order_number),
+                '\nYour order ({}) has been'.format(order.order_number) +
+                ' confirmed.\n\n',
                 settings.EMAIL_HOST_USER,
                 [order.email],
                 fail_silently=False,
