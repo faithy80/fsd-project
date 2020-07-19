@@ -14,18 +14,18 @@ class TestAccountsViews(TestCase):
             '12345',
         )
 
-    def test_logout(self):
+    def test_logout_get_response_with_admin_acc(self):
         self.client.login(username='testuser', password='12345')
 
         response = self.client.get(reverse('logout'))
         self.assertRedirects(response, reverse('index'))
 
-    def test_login_page(self):
+    def test_login_get_response(self):
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'login.html')
 
-    def test_login_fail(self):
+    def test_login_post_response_fail(self):
         response = self.client.post(
             reverse('login'),
             {
@@ -40,7 +40,7 @@ class TestAccountsViews(TestCase):
             'Your username or password is incorrect'
         )
 
-    def test_login_success(self):
+    def test_login_post_response_success(self):
         response = self.client.post(
             reverse('login'),
             {
@@ -50,12 +50,12 @@ class TestAccountsViews(TestCase):
         )
         self.assertRedirects(response, reverse('dashboard'))
 
-    def test_registration_page(self):
+    def test_registration_get_response(self):
         response = self.client.get('/accounts/register/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'register.html')
 
-    def test_registration_page_success(self):
+    def test_registration_page_post_response_success(self):
         response = self.client.post(
             reverse('register'),
             {
@@ -72,14 +72,14 @@ class TestAccountsViews(TestCase):
         )
         self.assertRedirects(response, reverse('index'))
 
-    def test_change_password_page(self):
+    def test_change_password_get_response(self):
         self.client.login(username='testuser', password='12345')
 
         response = self.client.get(reverse('change_password'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'change_password.html')
 
-    def test_change_password_page_success(self):
+    def test_change_password_post_response_success(self):
         self.client.login(username='testuser', password='12345')
 
         form = PasswordChangeForm(
@@ -101,7 +101,7 @@ class TestAccountsViews(TestCase):
         )
         self.assertRedirects(response, reverse('dashboard'))
 
-    def test_change_password_page_fail(self):
+    def test_change_password_post_response_fail(self):
         self.client.login(username='testuser', password='12345')
 
         response = self.client.post(
