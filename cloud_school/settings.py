@@ -28,8 +28,8 @@ if os.path.exists('env.py'):
     DEBUG = True
 
 else:
-    # Debug stays on until the end of the development
-    DEBUG = True    
+    # Debug mode disabled for production
+    DEBUG = False    
 
 
 # Quick-start development settings - unsuitable for production
