@@ -3,6 +3,5 @@
 env.py
 /media/*
 *json
-/staticfiles/*
 /htmlcov/*
 .coverage
