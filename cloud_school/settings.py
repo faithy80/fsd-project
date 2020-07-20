@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import dj_database_url
 import sys
+from google.oauth2 import service_account
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -71,7 +72,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gdstorage',
     'materializecssform',
     'home',
     'accounts',
@@ -89,7 +89,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'cloud_school.urls'
@@ -160,7 +159,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -172,8 +173,10 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Google Drive Storage Settings
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'google-credentials.json'
-GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = '/cloud-school/'
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    'google-credentials.json',
+)
+GS_BUCKET_NAME = 'cloud_school'
 
 # Gmail SMTP Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

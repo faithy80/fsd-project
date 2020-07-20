@@ -1,9 +1,4 @@
 from django.db import models
-from gdstorage.storage import GoogleDriveStorage
-
-
-# Define Google Drive Storage
-gd_storage = GoogleDriveStorage()
 
 
 class Product(models.Model):
@@ -25,7 +20,6 @@ class Product(models.Model):
     )
     product_image = models.ImageField(
         'Product image',
-        storage=gd_storage,
         upload_to='product_images'
     )
 
