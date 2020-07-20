@@ -37,20 +37,21 @@ else:
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 
-# Database settings for both local development and Heroku
-# Using Heroku Postgres addon
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
-
-
 # if test is running
-# use local sqlite db
 if 'test' in sys.argv:
+    # Database settings in test mode
+    # use local sqlite db
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3'
         }
+    }
+
+else:
+    # Database settings for both local development and Heroku
+    # Using Heroku Postgres addon
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 
 
@@ -183,8 +184,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'test@test.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'test')
 EMAIL_SUBJECT = 'Test order confirmation email'
 EMAIL_FORM = 'This is an automated email from fsd-project.herokuapp.com.\n'
 
@@ -196,5 +197,5 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 # Stripe
 STRIPE_CURRENCY = 'eur'
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', 'test')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'test')
