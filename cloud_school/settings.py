@@ -30,7 +30,7 @@ if os.path.exists('env.py'):
 
 else:
     # Debug mode disabled for production
-    DEBUG = False    
+    DEBUG = False
 
 
 # Quick-start development settings - unsuitable for production
@@ -51,7 +51,7 @@ if 'test' in sys.argv:
         'default': {
             'ENGINE': 'django.db.backends.sqlite3'
         }
-    } 
+    }
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -190,7 +190,8 @@ EMAIL_FORM = 'This is an automated email from fsd-project.herokuapp.com.\n'
 
 # Session Settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 3600 # set to 1 hour
+# set to 1 hour
+SESSION_COOKIE_AGE = 3600
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Stripe
