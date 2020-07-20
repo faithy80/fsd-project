@@ -54,6 +54,16 @@ else:
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 
+    # Setup default static and media file storage
+    STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+    # Google Drive Storage Settings
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        'google-credentials.json',
+    )
+    GS_BUCKET_NAME = 'cloud_school'
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -160,10 +170,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
@@ -173,11 +179,6 @@ MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = '/'
 
-# Google Drive Storage Settings
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    'google-credentials.json',
-)
-GS_BUCKET_NAME = 'cloud_school'
 
 # Gmail SMTP Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -189,11 +190,13 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'test')
 EMAIL_SUBJECT = 'Test order confirmation email'
 EMAIL_FORM = 'This is an automated email from fsd-project.herokuapp.com.\n'
 
+
 # Session Settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # set to 1 hour
 SESSION_COOKIE_AGE = 3600
 SESSION_SAVE_EVERY_REQUEST = True
+
 
 # Stripe
 STRIPE_CURRENCY = 'eur'
