@@ -1,6 +1,20 @@
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
+import os
+import uuid
+
+
+def content_file_name(instance, filename):
+    """
+    This function prevents that a file is uploaded with an existing name
+    """
+    
+    path = 'content'
+    generated_id = uuid.uuid4().hex.upper()
+    ext = filename.split('.')[-1]
+    filename = "%s_%s.%s" % (instance.user.id, generated_id, ext)
+    return os.path.join(path, filename)
 
 
 class Profile(models.Model):
@@ -47,7 +61,10 @@ class ContentUpload(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField('Description', max_length=200)
-    content = models.FileField('Upload content', upload_to='content')
+    content = models.FileField(
+        'Upload content',
+        upload_to=content_file_name,
+    )
     upload_date = models.DateField(auto_now_add=True)
 
     class Meta:

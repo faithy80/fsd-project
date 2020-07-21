@@ -1,4 +1,18 @@
 from django.db import models
+import os
+import uuid
+
+
+def content_file_name(instance, filename):
+    """
+    This function prevents that a file is uploaded with an existing name
+    """
+    
+    path = 'product_images'
+    generated_id = uuid.uuid4().hex.upper()
+    ext = filename.split('.')[-1]
+    filename = "%s_%s.%s" % (instance.product_name, generated_id, ext)
+    return os.path.join(path, filename)
 
 
 class Product(models.Model):
@@ -20,7 +34,7 @@ class Product(models.Model):
     )
     product_image = models.ImageField(
         'Product image',
-        upload_to='product_images'
+        upload_to=content_file_name,
     )
 
     def __str__(self):
