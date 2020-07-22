@@ -4,10 +4,10 @@ os.environ.setdefault(
     'SECRET_KEY', ''
 )
 os.environ.setdefault(
-    'EMAIL_HOST_USER', ''
+    'EMAIL_API_KEY', ''
 )
 os.environ.setdefault(
-    'EMAIL_HOST_PASSWORD', ''
+    'DJANGO_EMAIL', ''
 )
 os.environ.setdefault(
     'DATABASE_URL', ''

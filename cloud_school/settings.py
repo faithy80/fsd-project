@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'materializecssform',
+    'anymail',
     'home',
     'accounts',
     'dashboard',
@@ -180,13 +181,14 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-# Gmail SMTP Settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'test@test.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'test')
+# Email API Settings
+ANYMAIL = {
+   "SENDINBLUE_API_KEY": os.environ.get('EMAIL_API_KEY', 'test'),
+}
+SENDINBLUE_API_URL = 'https://api.sendinblue.com/v3/'
+EMAIL_BACKEND = 'anymail.backends.sendinblue.EmailBackend'
+DEFAULT_FROM_EMAIL = os.environ.get('DJANGO_EMAIL', 'test@test.com')
+SERVER_EMAIL = os.environ.get('DJANGO_EMAIL', 'test@test.com')
 EMAIL_SUBJECT = 'Test order confirmation email'
 EMAIL_FORM = 'This is an automated email from fsd-project.herokuapp.com.\n'
 
