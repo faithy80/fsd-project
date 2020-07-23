@@ -244,7 +244,7 @@ I chose Material CSS for the frontend design. I wanted to try another framework 
 
 ## Features
 
-I already mentioned some of the visible features in the UX Scope plane section. There are also a few hidden ones. The backend is the heart of the project. It gathers all the information for the views and stores all the information that comes from the frontend. It is connected to a free Postgres database hosted by Heroku. The dj-database-url and the psycopg2-binary applications are connecting the database to the backend. The gunicorn application is responsible for running the Django website on the Heroku server. The static files and media content are hosted by the Google Cloud Storages API. I used the whitenoise app for static file hosting in debug mode but the project stopped working with an internal server error after switching to production. I have tried a lot of solutions to fix the problem but they did not work. The fastest and easiest way to get the project working again was to move the static file hosting to GCS too. The Stripe application ensures a smooth, secure, and convenient card payment. A short JavaScript code guarantees the real-time connection to [stripe.com](https://stripe.com/ie) for the enhanced user experience and the immediate card data validation.
+I already mentioned some of the visible features in the UX Scope plane section. There are also a few hidden ones. The backend is the heart of the project. It gathers all the information for the views and stores all the information that comes from the frontend. It is connected to a free Postgres database hosted by Heroku. The dj-database-url and the psycopg2-binary applications are connecting the database to the backend. The gunicorn application is responsible for running the Django website on the Heroku server. The static files and media content are hosted by the Google Cloud Storage API. I used the whitenoise app for static file hosting in debug mode but the project stopped working with an internal server error after switching to production. I have tried a lot of solutions to fix the problem but they did not work. The fastest and easiest way to get the project working again was to move the static file hosting to GCS too. The Stripe application ensures a smooth, secure, and convenient card payment. A short JavaScript code guarantees the real-time connection to [stripe.com](https://stripe.com/ie) for the enhanced user experience and the immediate card data validation.
 
 ## Future implementations
 
@@ -305,6 +305,8 @@ Technologies used in the project:
 * [Travis-CI](https://travis-ci.com/) for test deployment  
 
 ## Deployment
+
+A Github account contains the source code of the project. A TravisCI and Heroku accounts are linked to the Github account. On a git push to the master branch, TravisCI detects the changes and rerun the continuous integration test. Once the test passes, the project is deployed to Heroku.
 
 ### Local deployment
 
@@ -416,13 +418,13 @@ The result are as follows:
 * home: 88%
 * shop: 88%
 
-As a part of the defensive design, some chunk of the code was unit tested against invalid data to prove that the code is error-proof. The frontend was also tested manually for the same reason. Both the frontend and the backend has an error handling mechanism in the code. In case if the defense of the frontend is bypassed, the backend can correct the data or get it corrected by the user.
+As a part of the defensive design, some chunk of the code was unit tested against invalid data to prove that the code is error-proof. The frontend was also tested manually for the same reason. Both the frontend and the backend has an error handling mechanism in the code. In case if the defense of the frontend is bypassed, the backend can correct the data or get it corrected by the user. Another part of the defensive design is the custom error handling template. The most common error numbers got a custom template to prevent disrupting the workflow on the website.
 
 The Github account of the project is connected to a TravisCI account to ensure the continuous integration test after each git push to the master branch. After all the tests passed, the website is deployed to the Heroku server.
 
 The website was also tested manually thoroughly. The desktop and the mobile modes were both checked for any errors. The most annoying error that I could not fix is the connection reset by peer error (104). Unfortunately, the Google Cloud Storage API causes the problem and it happens rarely. The root cause comes from the free tier limited access.
 
-Before switching to production, I was using the whitenoise application to host static files for my project. After the Heroku deployment and turning off the debug mode, the website stopped working and gave an internal server error (500) message. After a couple of hours of research, it turned out that the whitenoise app interferes with Heroku in the production. To fix this problem, I had to move the static file hosting to Google Cloud Storage too. I had to change the application that handled the communication between the GCS API and Django from django-googledrive-storage to django-storages.
+Before switching to production, I was using the whitenoise application to host static files for my project. After the Heroku deployment and turning off the debug mode, the website stopped working and gave an internal server error (500) message. After a couple of hours of research, it turned out that the whitenoise app interferes with Heroku in production. To fix this problem, I had to move the static file hosting to Google Cloud Storage too. I had to change the application that handled the communication between the GCS API and Django from django-googledrive-storage to django-storages.
 
 The change generated another problem. If a file with an existing name on the server in the same directory was uploaded, the existing file was overwritten rather than uploaded with an alternative filename. The problem remained hidden until I deleted a product that used the same file. A file not found error (404) came up when I tried to remove another product with the missing image. To solve this problem, I used UUID similar to creating the order number to generate a unique filename for each file before the upload. This solution guarantees that each content or product image will have a unique name.
 
