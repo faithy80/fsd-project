@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load materializecss %}
 
 {% block page_title %}Organize a student account{% endblock %}
@@ -85,6 +86,8 @@
     {% csrf_token %}
     {{ message_form|materializecss }}
 
+    <div id="message-counter"></div>
+
     <button type="submit" class="waves-effect waves-light btn btn-small card-btn">
         Send message
         <i class="material-icons left">message</i>
@@ -97,3 +100,9 @@
 </a>
 
 {% endblock %}
+
+{% block postloadjs %}
+
+<script src="{% static 'js/count.js' %}"></script>
+
+{% endblock postloadjs %}
