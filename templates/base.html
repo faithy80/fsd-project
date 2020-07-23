@@ -175,6 +175,7 @@
     <!-- Stripe API -->
     <script src="https://js.stripe.com/v3/"></script>
 
+    <!-- Materialize CSS js init -->
     <script>
         $(document).ready(function () {
             // Select form init
@@ -187,6 +188,9 @@
         // Sidenav init
         $('.sidenav').sidenav();
     </script>
+
+    <!-- Load custom js -->
+    <script src="{% static 'js/confirm.js' %}"></script>
 
     {% block postloadjs %}
     {% endblock postloadjs %}

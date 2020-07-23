@@ -21,7 +21,7 @@
                         <th>Description</th>
 
                         <th>Download</th>
-                        
+
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                     {% for item in student_content %}
                     <tr>
                         <td>{{ item.description }}</td>
-                        
+
                         <td>
                             <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small btn-small"
                                 target="_blank">
@@ -40,9 +40,10 @@
                         </td>
 
                         <td>
-                            <form method="POST" action="{% url 'delete_content' item.pk %}">
+                            <form method="POST" action="{% url 'delete_content' item.pk %}"
+                                onsubmit="return confirmDelete('content');">
                                 {% csrf_token %}
-                                
+
                                 <button type="submit" class="waves-effect waves-light btn btn-small red">
                                     Delete
                                     <i class="material-icons left">delete</i>
@@ -55,7 +56,7 @@
             </table>
 
             {% else %}
-                <p>Nothing is uploaded yet.</p>
+            <p>Nothing is uploaded yet.</p>
             {% endif %}
         </div>
     </li>
@@ -68,13 +69,13 @@
 
         <div class="collapsible-body">
             {% if chat %}
-                {% for item in chat %}
-                    <div>
-                        [{{item.message_date}}] &lt;{{item.from_user.get_full_name}}&gt; {{item.message}}
-                    </div>
-                {% endfor %}
+            {% for item in chat %}
+            <div>
+                [{{item.message_date}}] &lt;{{item.from_user.get_full_name}}&gt; {{item.message}}
+            </div>
+            {% endfor %}
             {% else %}
-                <p>No messages yet.</p>
+            <p>No messages yet.</p>
             {% endif %}
         </div>
     </li>
@@ -82,7 +83,7 @@
 
 <form method="POST" action="{% url 'send_message' profile.pk student_profile.pk %}">
     {% csrf_token %}
-    {{ message_form|materializecss }}    
+    {{ message_form|materializecss }}
 
     <button type="submit" class="waves-effect waves-light btn btn-small card-btn">
         Send message

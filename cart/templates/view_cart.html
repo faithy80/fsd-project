@@ -48,7 +48,8 @@
             </td>
 
             <td>
-                <form method="POST" action="{% url 'remove_cart_item' item.product.pk %}">
+                <form method="POST" action="{% url 'remove_cart_item' item.product.pk %}"
+                    onsubmit="return confirmDelete('cart item');">
                     {% csrf_token %}
 
                     <button class="waves-effect waves-light btn btn-small cart-btn red">

@@ -29,7 +29,8 @@
                         Price: {{item.product_price}} euro
                     </p>
 
-                    <form method="POST" action="{% url 'delete_product' item.pk %}">
+                    <form method="POST" action="{% url 'delete_product' item.pk %}"
+                        onsubmit="return confirmDelete('product');">
                         {% csrf_token %}
 
                         <a href="{% url 'edit_product' item.pk %}"

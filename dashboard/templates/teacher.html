@@ -9,7 +9,7 @@
 <form method="POST">
     {% csrf_token %}
     {{ select_form|materializecss }}
-        
+
     <button type="submit" class="waves-effect waves-light btn btn-small card-btn">
         Organize a student account
         <i class="material-icons left">school</i>
@@ -45,7 +45,7 @@
                     {% for item in uploaded_content %}
                     <tr>
                         <td>{{ item.description }}</td>
-                        
+
                         <td>
                             <a href="{{ item.content.url }}" class="waves-effect waves-light btn btn-small btn-small"
                                 target="_blank">
@@ -53,9 +53,10 @@
                                 <i class="material-icons left">cloud_download</i>
                             </a>
                         </td>
-                        
+
                         <td>
-                            <form method="POST" action="{% url 'delete_content' item.pk %}">
+                            <form method="POST" action="{% url 'delete_content' item.pk %}"
+                                onsubmit="return confirmDelete('content');">
                                 {% csrf_token %}
 
                                 <button type="submit" class="waves-effect waves-light btn btn-small red">
@@ -70,7 +71,7 @@
             </table>
 
             {% else %}
-                <p>Nothing is uploaded yet.</p>
+            <p>Nothing is uploaded yet.</p>
             {% endif %}
         </div>
     </li>
