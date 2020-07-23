@@ -364,7 +364,7 @@ Then use the final commands to finish the deployment:
 
 * migrate the database: `python3 manage.py makemigrations && python3 manage.py migrate`
 * create an admin account: `python3 manage.py createsuperuser`
-* collect static files: `python3 manage.py collectstatic --noinput`
+* collect static files: `python3 manage.py collectstatic --noinput` (this command has to run each time if a static file changes)
 
 To start the project:
 
@@ -403,7 +403,7 @@ The next step is the code deployment. I prefer the automatic deployment from the
 
 * migrate the database: `heroku run python3 manage.py makemigrations -a <app_name> && heroku run python3 manage.py migrate -a <app_name>`
 * create an admin account: `heroku run python3 manage.py createsuperuser -a <app_name>`
-* collect static files: `heroku run python3 manage.py collectstatic --noinput -a <app_name>`
+* collect static files: `heroku run python3 manage.py collectstatic --noinput -a <app_name>` (this command has to run after each deploy)
 
 ## Testing and validation
 
