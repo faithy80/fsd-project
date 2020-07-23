@@ -106,6 +106,10 @@
 
                     <li class="{% if url_name == 'view_cart' %}active{% endif %}">
                         <a href="{% url 'view_cart' %}">
+                            {% if product_count > 0 %}
+                            <span class="badge red white-text">{{product_count}}</span>
+                            {% endif %}
+
                             <i class="material-icons">shopping_cart</i>
                         </a>
                     </li>
