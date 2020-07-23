@@ -10,6 +10,7 @@
 }
 
 .update-quantity-field {
+    display: block;
     width: 5rem !important;
 }
 
