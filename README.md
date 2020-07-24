@@ -44,7 +44,7 @@ My project was inspired by the Covid-19 crisis. My children handed in their home
 
 ## Demo
 
-The live demo is hosted by Heroku. Click [here](http://fsd-project.herokuapp.com/) to open the web application.
+The live demo is hosted by Heroku. Click [here](https://fsd-project.herokuapp.com/) to open the web application.
 
 The following accounts are available for testing:
 
