@@ -8,9 +8,9 @@ The features of Django:
 
 * Django has excellent documentation as it was developed by a newspaper at the beginning.
 * Django uses Python Web-framework. Python is one of the easiest languages to learn. Its simplicity allows us to create, modify, and debug backend codes and frontend templates easily.
-* Django is optimized for search engines. Django works with URLs rather than IP addresses. Easy to add them to search engines without the need for conversion.
+* Django is optimized for search engines. Django works with URLs rather than IP addresses. It is easy to add them to search engines without the need for conversion.
 * Django is highly scalable. Only the necessary features need to be implemented. It suits both small and large projects.
-* Django is very versatile in its way. The logical structure (MVT, Model-View-Template) is a bit strict but it gives a stable fundamental for the developers.
+* Django is very versatile in its own way. The logical structure (MVT, Model-View-Template) is a bit strict but it gives a stable fundamental for the developers.
 * Django offers high-level security. The sensitive information remains hidden at all times. Also, the csrf security tokens allow the users to pass information to the backend in a secure way.
 * Django provides an automated testing environment. Writing unit tests makes debugging easier and helps to understand defensive programming. The tests are useful at creating error-proof applications as the code can be tested thoroughly.
 * Django provides rapid development. The framework already has a lot of built-in features. Also, external applications can be added to the project from [pypi.org](https://pypi.org/) to speed-up the development.
@@ -66,7 +66,7 @@ The following user stories were considered:
 * As a parent, I want to add the products to the cart, so I can buy them.
   * Acceptance criteria: build a cart to add the products to
 
-* As a parent, I want to pay online for the products, so I shop conveniently.
+* As a parent, I want to pay online for the products, so I can shop conveniently.
   * Acceptance criteria: build a checkout view to fill out the form and the card details for the online purchase
 
 * As a parent, I want to get a confirmation email, so I can have proof of the purchase.
@@ -106,15 +106,15 @@ The following user stories were considered:
 
 > What am I aiming to achieve in the first place, and for whom?
 
-The project is for the teachers, the pupils, and their parents. It has three main parts.
+The project is for the teachers, the students, and their parents. It has three main parts.
 
-The first one is the communication between the teachers and their pupils. Both the teachers and the students can upload content, send, and receive messages.
+The first one is the communication between the teachers and their students. Both of them can upload content, send and receive messages.
 
 The second main part is the shop application. The parents can pay for book rental, art & craft, stationery, etc. It is also useful to pay for the school tour or summer camps. The shop accepts convenient and secure card payments using Stripe and sends a confirmation email on successful payment.
 
 The third main part is the admin dashboard. The products/services can be added to the shop on that page. The orders and the items are easy to track in the admin dashboard too.
 
-The registration is fully automated and there is a password recovery option via email. While the students and the teachers have an account to log into, the parents don't have an account. Also, the admin is responsible for tracking the orders and managing the shop in this project. It is a plan to create an account for the parents to order more conveniently and for the school secretary to maintain the shop and the orders.
+The registration is fully automated and there is a password recovery option via email. While the students and the teachers have an account to log into, the parents don't have an account. Also, the admin is responsible for tracking the orders and managing the shop in this project. There is a plan to create an account for the parents to order more conveniently and for the school secretary to maintain the shop and the orders.
 
 ### Scope plane
 
@@ -152,7 +152,7 @@ The following features were implemented:
 
 > How is the information structured?
 
-The landing page contains every information. The users can decide if they either want to shop, register for an account, or log in to an existing one. The backend redirects the authenticated users to the corresponding dashboard. The teacher dashboard looks very similar to the student one. The only difference is the extra page where the teachers can view the selected student's uploaded content and messages. The structure of the pages is very simple and straightforward. It is easy to find everything that the user may look for.
+The landing page contains every information. The users can decide whether they want to shop, register for an account, or log in to an existing one. The backend redirects the authenticated users to the corresponding dashboard. The teacher dashboard looks very similar to the student one. The only difference is the extra page where the teachers can view the selected student's uploaded content and messages. The structure of the pages is very simple and straightforward. It is easy to find everything that the user may look for.
 
 The structure of the database as follows:
 
@@ -204,7 +204,7 @@ The structure of the database as follows:
 
 > How is the information implemented, and how will the user navigate through the features?
 
-On the landing page, the navigation bar is responsible to guide the user in the right direction. The mobile view has a simple navigation bar that opens a sidebar on click. The shop, the login, the registration, and the cart view is only available when the user is not logged in. The change password and the logout navitems are only visible on the navigation bar after the successful authentication. The views in non-authenticated mode have buttons on the bottom of the page to go forward or go back in the process to fix something or simply start over. The dashboards are a small bit different again. There are buttons on the top of the page to select the task that the users wish to do on the website. Every view that opens from the dashboard has the buttons on the bottom of the page for navigation. The exception from this rule is the edit product view where also a red-coloured delete button can be found at the bottom of the page.
+On the landing page, the navigation bar is responsible to guide the user in the right direction. The mobile view has a simple navigation bar that opens a sidebar on click. The shop, the login, the registration, and the cart view is only available when the user is not logged in. The change password and the logout links are only visible on the navigation bar after the successful authentication. The views in non-authenticated mode have buttons on the bottom of the page to go forward or go back in the process. The dashboards are a small bit different again. There are buttons on the top of the page to select the task that the users wish to do on the website. Every view that opens from the dashboard has the buttons on the bottom of the page for navigation. The exception from this rule is the edit product view where also a red-coloured delete button can be found under the navigation buttons.
 
 ### Surface plane
 
@@ -338,7 +338,7 @@ Once the environment is prepared, the web application can be installed using the
   * a STRIPE_PUBLIC_KEY and a STRIPE_SECRET_KEY from Stripe
 * place the service account JSON file to the project directory and rename it to google-credentials.json
 
-The application is set for the Postgres database in Heroku. To revert it to default, change the following code in the settings.py:
+The application is set for the Postgres database in Heroku. To revert it to default, change the following code in settings.py:
 
 From:
 
@@ -418,7 +418,7 @@ The result are as follows:
 * home: 88%
 * shop: 88%
 
-As a part of the defensive design, some chunk of the code was unit tested against invalid data to prove that the code is error-proof. The frontend was also tested manually for the same reason. Both the frontend and the backend has an error handling mechanism in the code. In case if the defense of the frontend is bypassed, the backend can correct the data or get it corrected by the user. Another part of the defensive design is the custom error handling template. The most common error numbers got a custom template to prevent disrupting the workflow on the website.
+As a part of the defensive programming, some chunk of the code was unit tested against invalid data to prove that the code is error-proof. The frontend was also tested manually for the same reason. Both the frontend and the backend has an error handling mechanism. In case if the defense of the frontend is bypassed, the backend can correct the data or get it corrected by the user. Another part of the defensive programming is the custom error handling template. The most common error numbers (104, 404, 500) are covered to prevent disrupting the workflow on the website.
 
 The Github account of the project is connected to a TravisCI account to ensure the continuous integration test after each git push to the master branch. After all the tests passed, the website is deployed to the Heroku server.
 
@@ -426,9 +426,9 @@ The website was also tested manually thoroughly. The desktop and the mobile mode
 
 Before switching to production, I was using the whitenoise application to host static files for my project. After the Heroku deployment and turning off the debug mode, the website stopped working and gave an internal server error (500) message. After a couple of hours of research, it turned out that the whitenoise app interferes with Heroku in production. To fix this problem, I had to move the static file hosting to Google Cloud Storage too. I had to change the application that handled the communication between the GCS API and Django from django-googledrive-storage to django-storages.
 
-The change generated another problem. If a file with an existing name on the server in the same directory was uploaded, the existing file was overwritten rather than uploaded with an alternative filename. The problem remained hidden until I deleted a product that used the same file. A file not found error (404) came up when I tried to remove another product with the missing image. To solve this problem, I used UUID similar to creating the order number to generate a unique filename for each file before the upload. This solution guarantees that each content or product image will have a unique name.
+The change generated another problem. If a file with an existing name on the server in the same directory was uploaded, the existing file was overwritten rather than uploaded with an alternative filename. The problem remained hidden until I deleted a product that used the same file. A file not found error (404) came up when I tried to remove another product with the missing image. To solve this problem, I used UUID similar to creating the order number to generate a unique filename for each file before the upload.
 
-Sending emails was handled by the Django SMTP handler using a Gmail account at the beginning. I had to change it. The email sending service did not work at all. The real solution was to switch to an API. After a long time and a lot of email service providers, I found the django-anymail application and [Sendinblue](https://www.sendinblue.com/). Sendinblue is also a free tier API but it is fast enough, reliable, and easy to configure.
+Sending emails was handled by the Django SMTP handler using a Gmail account. I had to change it. The email sending service did not work properly. The real solution was to switch to an API. After a long time and a lot of email service providers, I found the django-anymail application and [Sendinblue](https://www.sendinblue.com/). Sendinblue is also a free tier API but it is fast enough, reliable, and easy to configure.
 
 The manual tests were successful. Every page is rendered. The registration, the login, the password changing, and the password recovery processes also work fine. The content can be uploaded. All the sent messages and uploaded content appear in the dashboard for both the student and the teacher. The admin can add, view, edit, or remove products and has a convenient view to check the orders and the ordered items. The Stripe payment system was also tested by the provided test card numbers. The website sends automated confirmation and password recovery emails.
 
